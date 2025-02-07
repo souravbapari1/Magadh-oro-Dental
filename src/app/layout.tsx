@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Geist_Mono, Jost } from "next/font/google";
 
-const geistSans = Geist({
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "./globals.css";
+import NavBar from "@/components/layout/NavBar";
+
+const geistSans = Jost({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
@@ -25,9 +31,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.className} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="relative">
+          <NavBar />
+          {children}
+        </div>
       </body>
     </html>
   );
