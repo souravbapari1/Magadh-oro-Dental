@@ -1,7 +1,35 @@
+import client from "@/graphql/client";
 import { LucideClock4, Phone } from "lucide-react";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
+import { CallSectionData } from "./interface/CallSection";
+import { gql } from "@apollo/client";
 
-function CallSection() {
+const CALL_SECTION = gql`
+  query Email {
+    homeHeader {
+      email {
+        content
+        id
+        title
+      }
+      timing {
+        content
+        id
+        title
+      }
+      call {
+        content
+        id
+        title
+      }
+    }
+  }
+`;
+async function CallSection() {
+  const { data } = await client.query<CallSectionData>({
+    query: CALL_SECTION,
+  });
+
   return (
     <div className="w-full border-b border-t border-primary/20">
       <div className="container">
@@ -13,7 +41,12 @@ function CallSection() {
               </div>
             </div>
             <div className="flex md:justify-start justify-center md:items-start items-center flex-col md:text-left text-center ">
-              <p className="font-bold text-primary">Need Dental Services ?</p>
+              <p
+                className="font-bold text-primary"
+                dangerouslySetInnerHTML={{
+                  __html: data?.homeHeader.call.title,
+                }}
+              />
 
               <p className="text-sm text-primary/60">
                 Call us on{" "}
