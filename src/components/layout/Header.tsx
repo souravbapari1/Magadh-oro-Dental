@@ -5,6 +5,7 @@ import Image from "next/image";
 import client, { strApi } from "@/graphql/client";
 import { HomeHeaderData } from "./interface/HomeHeader";
 import { gql } from "@apollo/client";
+import HeaderImageSlider from "./HeaderImageSlider";
 
 const HEADER_DATA_QUERY = gql`
   query HomeHeader {
@@ -78,15 +79,8 @@ async function Header() {
           </div>
         </div>
       </div>
-      <div className="lg:w-[950px] w-full lg:h-full md:h-[600px] sm:h-96 h-60 lg:p-0 p-4 lg:mt-0 mt-10 relative">
-        <Image
-          alt="logo"
-          src={`${strApi}` + data.homeHeader.images[0].url}
-          width={1000}
-          height={1000}
-          className="object-cover w-full h-full md:rounded-none rounded-3xl md:shadow-none shadow-lg"
-        />
-      </div>
+
+      <HeaderImageSlider images={data.homeHeader.images} />
     </div>
   );
 }
