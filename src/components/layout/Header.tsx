@@ -17,11 +17,6 @@ const HEADER_DATA_QUERY = gql`
         url
       }
       youtube_embed_url
-      infobar {
-        content
-        title
-        id
-      }
     }
   }
 `;

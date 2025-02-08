@@ -64,7 +64,7 @@ function HomeFaqs() {
           {Array(5)
             .fill(0)
             .map((_, index) => (
-              <Accordion type="single" collapsible>
+              <Accordion type="single" collapsible key={index + "faq"}>
                 <AccordionItem
                   value="item-1"
                   className="bg-white px-6  rounded-xl shadow-sm shadow-gray-600/5"

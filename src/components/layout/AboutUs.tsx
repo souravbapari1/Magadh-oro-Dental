@@ -44,7 +44,10 @@ function AboutUs() {
               {Array(3)
                 .fill(0)
                 .map((item, index) => (
-                  <div className="flex justify-start  items-center md:font-semibold md:text-base text-sm   text-gray-800 gap-3">
+                  <div
+                    key={index + "tet"}
+                    className="flex justify-start  items-center md:font-semibold md:text-base text-sm   text-gray-800 gap-3"
+                  >
                     <div className="w-4 h-4">
                       <IoMdCheckmarkCircleOutline
                         size={19}

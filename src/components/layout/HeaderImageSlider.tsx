@@ -15,7 +15,7 @@ function HeaderImageSlider({ images }: { images: HomeHeader["images"] }) {
       slidesPerView={1}
       loop={true}
       autoplay={{
-        delay: 3000, // Change slide every 3 seconds
+        delay: 3000,
         disableOnInteraction: false,
       }}
       className="lg:w-[950px] w-full lg:h-full md:h-[600px] sm:h-96 h-60 lg:p-0 p-4 lg:mt-0 mt-10 relative"
