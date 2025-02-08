@@ -7,6 +7,8 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "./globals.css";
 import NavBar from "@/components/layout/NavBar";
+import Client from "./client";
+import NextTopLoader from "nextjs-toploader";
 
 const geistSans = Jost({
   variable: "--font-geist-sans",
@@ -33,10 +35,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.className} ${geistMono.variable} antialiased`}
       >
-        <div className="relative">
-          <NavBar />
-          {children}
-        </div>
+        <NextTopLoader />
+        <Client>
+          <div className="relative">
+            <NavBar />
+
+            {children}
+          </div>
+        </Client>
       </body>
     </html>
   );

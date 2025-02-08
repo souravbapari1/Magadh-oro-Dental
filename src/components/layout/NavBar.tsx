@@ -1,16 +1,72 @@
-import { Facebook, Mail, Menu, Phone } from "lucide-react";
-import Link from "next/link";
-import React from "react";
-import { FaPhone } from "react-icons/fa6";
-import { FaFacebook, FaLinkedinIn } from "react-icons/fa";
-import { TbBrandInstagramFilled } from "react-icons/tb";
-import { IoLogoYoutube, IoMailUnread } from "react-icons/io5";
-import { FaSquareXTwitter } from "react-icons/fa6";
+import { Menu } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { FaFacebook, FaLinkedinIn } from "react-icons/fa";
+import { FaGoogle, FaPhone, FaSquareXTwitter } from "react-icons/fa6";
+import { IoLogoYoutube, IoMailUnread } from "react-icons/io5";
+import { TbBrandInstagramFilled } from "react-icons/tb";
 import { Button } from "../ui/button";
-import { IoIosArrowDown } from "react-icons/io";
+import MobileNavBarItem from "./MobileNavBarItem";
 import NavItem from "./NavItem";
-function NavBar() {
+import client from "@/graphql/client";
+import { gql } from "@apollo/client";
+import { TopHeaderData } from "./interface/NavBar";
+
+const TopDataQuery = gql`
+  query TopBar {
+    headerTop {
+      TopBar {
+        Email
+        Mobile
+        socailLinks {
+          facebook {
+            id
+            link_text
+            link_url
+            open_on
+          }
+          google {
+            id
+            link_text
+            link_url
+            open_on
+          }
+          instagram {
+            id
+            link_text
+            link_url
+            open_on
+          }
+          linkedin {
+            id
+            link_text
+            link_url
+            open_on
+          }
+          twitter {
+            id
+            link_text
+            link_url
+            open_on
+          }
+          youtube {
+            id
+            link_text
+            link_url
+            open_on
+          }
+          id
+        }
+      }
+    }
+  }
+`;
+
+async function NavBar() {
+  const { data } = await client.query<TopHeaderData>({
+    query: TopDataQuery,
+  });
+
   return (
     <>
       <div className="w-full h-8 bg-primary flex justify-between items-center ">
@@ -18,29 +74,63 @@ function NavBar() {
           <div className="w-full md:justify-between justify-center md:flex hidden items-center h-full ">
             <div className="text-white h-full flex  justify-start items-center">
               <p className="text-xs font-semibold flex justify-start items-center gap-2">
-                <IoMailUnread size={13} /> magadhorodentalclinic@gmail.com
+                <IoMailUnread size={13} /> {data?.headerTop?.TopBar?.Email}
               </p>
               <p className="text-xs font-semibold flex justify-start items-center gap-2 pl-5">
-                <FaPhone size={11} /> +91 9135086087
+                <FaPhone size={11} /> +{data?.headerTop?.TopBar?.Mobile}
               </p>
             </div>
           </div>
           <div className="flex md:justify-end justify-center items-center gap-4 text-white text-sm">
-            <Link href="/">
-              <FaFacebook />
-            </Link>
-            <Link href="/">
-              <TbBrandInstagramFilled size={20} />
-            </Link>
-            <Link href="/">
-              <FaSquareXTwitter />
-            </Link>
-            <Link href="/">
-              <IoLogoYoutube size={17} />
-            </Link>
-            <Link href="/">
-              <FaLinkedinIn size={17} />
-            </Link>
+            {data.headerTop.TopBar.socailLinks.facebook && (
+              <Link
+                target={data.headerTop.TopBar.socailLinks.facebook.open_on}
+                href={data?.headerTop.TopBar.socailLinks.facebook.link_url}
+              >
+                <FaFacebook />
+              </Link>
+            )}
+            {data.headerTop.TopBar.socailLinks.instagram && (
+              <Link
+                target={data.headerTop.TopBar.socailLinks.instagram.open_on}
+                href={data?.headerTop.TopBar.socailLinks.instagram.link_url}
+              >
+                <TbBrandInstagramFilled size={20} />
+              </Link>
+            )}
+            {data.headerTop.TopBar.socailLinks.twitter && (
+              <Link
+                target={data.headerTop.TopBar.socailLinks.twitter.open_on}
+                href={data.headerTop.TopBar.socailLinks.twitter.link_url}
+              >
+                <FaSquareXTwitter />
+              </Link>
+            )}
+
+            {data.headerTop.TopBar.socailLinks.youtube && (
+              <Link
+                target={data.headerTop.TopBar.socailLinks.youtube.open_on}
+                href={data.headerTop.TopBar.socailLinks.youtube.link_url}
+              >
+                <IoLogoYoutube size={17} />
+              </Link>
+            )}
+            {data.headerTop.TopBar.socailLinks.google && (
+              <Link
+                target={data.headerTop.TopBar.socailLinks.google.open_on}
+                href={data.headerTop.TopBar.socailLinks.google.link_url}
+              >
+                <FaGoogle size={16} />
+              </Link>
+            )}
+            {data.headerTop.TopBar.socailLinks.linkedin && (
+              <Link
+                target={data.headerTop.TopBar.socailLinks.linkedin.open_on}
+                href={data.headerTop.TopBar.socailLinks.linkedin.link_url}
+              >
+                <FaLinkedinIn size={17} />
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -64,9 +154,11 @@ function NavBar() {
             <NavItem />
           </div>
           <div className="">
-            <Button className=" shadow-none rounded-none" size="sm">
-              Book Appointment
-            </Button>
+            <Link href="/contact">
+              <Button className=" shadow-none rounded-none" size="sm">
+                Book Appointment
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -75,34 +167,3 @@ function NavBar() {
 }
 
 export default NavBar;
-
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
-function MobileNavBarItem({ children }: { children: React.ReactNode }) {
-  return (
-    <Sheet>
-      <SheetTrigger>{children}</SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>
-            <Image
-              alt="logo"
-              src="/logo.jpeg"
-              width={1000}
-              height={1000}
-              className="object-contain h-14 w-auto"
-            />
-          </SheetTitle>
-        </SheetHeader>
-        <NavItem />
-      </SheetContent>
-    </Sheet>
-  );
-}

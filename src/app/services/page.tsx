@@ -13,7 +13,7 @@ function page() {
     <div>
       <PageHeader title="Services" path="Services" />
       <div className="container py-20">
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid  md:grid-cols-3 gap-8">
           <ServicesItem />
           <ServicesItem />
           <ServicesItem />

@@ -2,8 +2,34 @@ import React from "react";
 import { Button } from "../ui/button";
 import { FaPlay } from "react-icons/fa";
 import Image from "next/image";
+import client, { strApi } from "@/graphql/client";
+import { HomeHeaderData } from "./interface/HomeHeader";
+import { gql } from "@apollo/client";
 
-function Header() {
+const HEADER_DATA_QUERY = gql`
+  query HomeHeader {
+    homeHeader {
+      top_title
+      main_title
+      description
+      images {
+        url
+      }
+      youtube_embed_url
+      infobar {
+        content
+        title
+        id
+      }
+    }
+  }
+`;
+
+async function Header() {
+  const { data } = await client.query<HomeHeaderData>({
+    query: HEADER_DATA_QUERY,
+  });
+
   return (
     <div className=" w-full flex justify-between lg:flex-row flex-col lg:gap-20 items-center lg:h-screen h-auto  lg:max-h-[700px] relative bg-[#fafbff] bg-[url('/hero_bg_3.png')] bg-no-repeat bg-cover bg-center">
       <div className="container  w-full h-full md:pt-0 pt-10 ">
@@ -13,15 +39,11 @@ function Header() {
             - implant orthodontic & laser clinic
           </h1>
           <h2 className="lg:text-6xl text-4xl lg:text-left text-center font-bold text-primary">
-            Your smile <br /> is our expertise
+            {/* {Your smile <br /> is our expertise} */}
+            {data.homeHeader.main_title}
           </h2>
           <p className="md:text-sm text-xs text-gray-500">
-            At Magadh Oro Dental, we believe that everyone deserves a beautiful,
-            confident smile. Our clinics in Patna specializes in Invisible
-            braces, Root canals, Cosmetic and laser dentistry, Maxillofacial and
-            gum's surgery, Dental implants, Kids dentistry and Full mouth
-            rehablitation. offering a wide range of advanced dental solutions
-            designed to enhance your smile and boost your inner confidence.
+            {data.homeHeader.description}
           </p>
           <div className="flex lg:flex-row flex-col justify-start items-center md:gap-9 gap-5 mt-3">
             <Button size="lg" className="shadow-none rounded-full py-6">
@@ -59,7 +81,7 @@ function Header() {
       <div className="lg:w-[950px] w-full lg:h-full md:h-[600px] sm:h-96 h-60 lg:p-0 p-4 lg:mt-0 mt-10 relative">
         <Image
           alt="logo"
-          src="https://magadhorodental.com/_next/image?url=https%3A%2F%2Fbackend.magadhorodental.com%2Fapi%2Ffiles%2Fkoe78xrl9aphtfe%2Fi9qhus7g6zklqky%2Fimg_20231231_175206_copy_1d2mX6pwwR.jpg&w=1200&q=75"
+          src={`${strApi}` + data.homeHeader.images[0].url}
           width={1000}
           height={1000}
           className="object-cover w-full h-full md:rounded-none rounded-3xl md:shadow-none shadow-lg"
