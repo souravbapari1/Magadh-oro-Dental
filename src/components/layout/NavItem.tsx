@@ -1,32 +1,33 @@
 import Link from "next/link";
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import { NavLink } from "./NavLink";
 
 function NavItem() {
   return (
     <ul className="flex lg:justify-center lg:mt-0 mt-4 lg:items-center lg:gap-6 gap-2 lg:flex-row flex-col text-sm text-gray-500 font-[550] h-full  ">
       <li className="hover:text-primary  transition-all lg:border-b-0  border-b lg:pb-0 pb-3">
-        <Link className=" h-full block" href="/">
+        <NavLink exact={true} className=" h-full block" href="/">
           Home
-        </Link>
+        </NavLink>
       </li>
       <li className="hover:text-primary  transition-all lg:border-b-0  border-b lg:pb-0 pb-3">
-        <Link href="/about">About</Link>
+        <NavLink href="/about">About</NavLink>
       </li>
       <li className="hover:text-primary  transition-all lg:border-b-0  border-b lg:pb-0 pb-3">
-        <Link href="/services">Services</Link>
+        <NavLink href="/services">Services</NavLink>
       </li>
       <li className="hover:text-primary  transition-all lg:border-b-0  border-b lg:pb-0 pb-3">
-        <Link href="/watch">Watch</Link>
+        <NavLink href="/watch">Watch</NavLink>
       </li>
       <li className="hover:text-primary  transition-all lg:border-b-0  border-b lg:pb-0 pb-3">
-        <Link href="/doctors">Doctors</Link>
+        <NavLink href="/doctors">Doctors</NavLink>
       </li>
       <li className="hover:text-primary  transition-all lg:border-b-0  border-b lg:pb-0 pb-3">
-        <Link href="/pricing">Pricing</Link>
+        <NavLink href="/pricing">Pricing</NavLink>
       </li>
       <li className="hover:text-primary  transition-all lg:border-b-0  border-b lg:pb-0 pb-3">
-        <Link href="/blogs">Blogs</Link>
+        <NavLink href="/blogs">Blogs</NavLink>
       </li>
       <li className="  relative cursor-pointer lg:border-b-0 border-b lg:pb-0 pb-3  lg:h-full group flex lg:justify-center items-center">
         <span className="flex lg:justify-center justify-between w-full items-center gap-2 group-hover:text-primary transition-all ">
@@ -55,9 +56,9 @@ function NavItem() {
         </ul>
       </li>
       <li className="lg:border-b-0 border-b lg:pb-0 pb-3 hover:text-primary  transition-all">
-        <Link className="hover:text-primary" href="/contact">
+        <NavLink className="hover:text-primary" href="/contact">
           Contact
-        </Link>
+        </NavLink>
       </li>
     </ul>
   );

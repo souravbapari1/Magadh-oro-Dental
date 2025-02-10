@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 function BookNow() {
   return (
@@ -17,13 +18,15 @@ function BookNow() {
           teeth whitening for life.
         </p>
 
-        <Button
-          size="lg"
-          className="rounded-full px-10 text-primary  transition-all "
-          variant="secondary"
-        >
-          Book Now
-        </Button>
+        <Link href={"/contact"}>
+          <Button
+            size="lg"
+            className="rounded-full px-10 text-primary  transition-all "
+            variant="secondary"
+          >
+            Book Now
+          </Button>
+        </Link>
       </div>
     </div>
   );
