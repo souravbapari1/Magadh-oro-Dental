@@ -2,15 +2,13 @@
 import React, { useState } from "react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
-function VideoSlider() {
-  const videos = [
-    "https://www.youtube.com/embed/eBDU0E4fH40?si=TNY4d5Fni0csib1g",
-    "https://www.youtube.com/embed/EXL8mMUXs88?si=kMrINFVx4Y0LTPlR",
-  ];
+import { VideosData } from "./interface/videos";
+
+function VideoSlider({ data }: { data: VideosData }) {
+  const videos = data.videos.map(
+    (video) => `https://www.youtube.com/embed/${video.youtube_video_id}`
+  );
 
   const [activeIndex, setActiveIndex] = useState(0);
 

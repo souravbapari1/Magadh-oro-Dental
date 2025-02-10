@@ -4,9 +4,14 @@ import Footer from "@/components/layout/Footer";
 import HomeFaqs from "@/components/layout/HomeFaqs";
 import PageHeader from "@/components/layout/PageHeader";
 import ReviewsSlide from "@/components/layout/ReviewsSlide";
-import VideoSlider, { VideoItem } from "@/components/layout/VideoSlider";
+import VideoSection from "@/components/layout/VideoSection";
+import { VideoItem } from "@/components/layout/VideoSlider";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Watch Videos - Magadh oro Dental",
+};
 
 function watch() {
   return (
@@ -48,7 +53,7 @@ function watch() {
       </div>
       <HomeFaqs />
       <ReviewsSlide />
-      <VideoSlider />
+      <VideoSection />
       <ClinicView />
       <BookNow />
       <Footer />

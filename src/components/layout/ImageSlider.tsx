@@ -4,15 +4,22 @@ import Image from "next/image";
 
 import React from "react";
 
-function ImageSlider() {
+function ImageSlider({
+  data,
+}: {
+  data: {
+    before: string;
+    after: string;
+  };
+}) {
   return (
-    <ImgComparisonSlider className="focus:outline-none outline-none hover:outline-none  overflow-hidden  bg-white ">
+    <ImgComparisonSlider className="focus:outline-none outline-none hover:outline-none border-[8px] border-primary/10 rounded-3xl overflow-hidden  bg-white ">
       <Image
         alt=""
         width={800}
         height={600}
         slot="first"
-        src="https://img-comparison-slider.sneas.io/demo/images/before.webp"
+        src={data.before}
         className="h-96 w-full object-cover bg-primary/10"
       />
       <Image
@@ -20,7 +27,7 @@ function ImageSlider() {
         width={800}
         height={600}
         slot="second"
-        src="https://img-comparison-slider.sneas.io/demo/images/after.webp"
+        src={data.after}
         className="h-96 w-full object-cover bg-primary/10"
       />
     </ImgComparisonSlider>

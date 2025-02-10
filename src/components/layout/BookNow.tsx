@@ -13,10 +13,8 @@ function BookNow() {
         </h1>
 
         <p className="max-w-[600px] text-white/80 text-base ">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima et,
-          sapiente, alias, nihil provident iure totam ipsam odit fugit
-          perspiciatis nisi accusamus repudiandae magni quis modi autem
-          temporibus qui magnam.
+          View available appointments and enjoy dentistry done right. +FREE
+          teeth whitening for life.
         </p>
 
         <Button

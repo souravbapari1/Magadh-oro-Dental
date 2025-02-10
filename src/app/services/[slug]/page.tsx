@@ -1,3 +1,4 @@
+import NotFound from "@/app/not-found";
 import BookNow from "@/components/layout/BookNow";
 import ClinicView from "@/components/layout/ClinicView";
 import Footer from "@/components/layout/Footer";
@@ -6,83 +7,84 @@ import ImageSlider from "@/components/layout/ImageSlider";
 import PageHeader from "@/components/layout/PageHeader";
 import ReviewsSlide from "@/components/layout/ReviewsSlide";
 import ServicesListCard from "@/components/layout/ServicesListCard";
-import VideoSlider from "@/components/layout/VideoSlider";
-import React from "react";
+import VideoSection from "@/components/layout/VideoSection";
+import client, { strApi } from "@/graphql/client";
+import { gql } from "@apollo/client";
+import { Metadata } from "next";
+import { ServicesConnectionData } from "./servicesPosts";
 
-function page() {
+const SERVICES_VIEW_QUERY = gql`
+  query Services_connection(
+    $filters: ServiceslistFiltersInput
+    $pagination: PaginationArg
+  ) {
+    services_connection(filters: $filters, pagination: $pagination) {
+      nodes {
+        slug
+        service_name
+        image {
+          url
+        }
+        documentId
+        description
+        content
+        before_afters {
+          title
+          after {
+            url
+          }
+          before {
+            url
+          }
+        }
+      }
+    }
+  }
+`;
+
+export let metadata: Metadata;
+
+async function page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  const { data } = await client.query<ServicesConnectionData>({
+    query: SERVICES_VIEW_QUERY,
+    variables: {
+      filters: {
+        slug: {
+          eq: slug,
+        },
+      },
+      pagination: {
+        limit: 1,
+      },
+    },
+  });
+
+  if (data.services_connection.nodes.length === 0) {
+    return <NotFound />;
+  }
+
+  metadata = {
+    title:
+      data.services_connection.nodes[0].service_name + " - Magadh oro Dental",
+    description: data.services_connection.nodes[0].description,
+  };
+
   return (
     <div>
-      <PageHeader title="Teeth Implantation" path="Teeth Implantation" />
+      <PageHeader
+        title={data.services_connection.nodes[0].service_name}
+        path={data.services_connection.nodes[0].slug}
+      />
       <div className="container py-20">
         <div className="grid lg:grid-cols-3 lg:gap-20 gap-10">
-          <div className="content lg:col-span-2">
-            <h3>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</h3>
-            <br />
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
-              aut fugit vitae alias temporibus assumenda dignissimos reiciendis
-              quidem voluptatum velit impedit, ex consectetur suscipit sunt
-              tempora minima facere nobis nemo tempore sed deleniti! Nulla,
-              odio! Minima iste temporibus ipsa perferendis. Quidem corrupti
-              nisi blanditiis magnam, dicta animi, enim ut dolores amet quia est
-              explicabo quibusdam illum minus doloribus natus itaque rem hic
-              nostrum. Odio eaque iure aperiam, est, debitis quaerat itaque eum
-              iste quia beatae ex ducimus dolore. Minus, vitae iusto. Tempore
-              eaque quas officiis, incidunt eligendi repellat voluptates nam
-              modi aut ipsum! Rerum est, quam laborum autem laboriosam
-              veritatis.
-            </p>
-            <br />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-              deleniti voluptatem iusto magni asperiores quas quis vel. Minima
-              repellat culpa, rem quod numquam optio quasi, sunt sapiente,
-              dolores est quibusdam.
-            </p>
-            <ul>
-              <li>18 Years of experience in cosmetic dentistry</li>
-              <li>
-                Cosmetic Dentist at Kailash Hospital & Heart Institute, Noida
-                (2008 - 2009)
-              </li>
-              <li>
-                Cosmetic & Pediatric Dentist at Magadh Oro Dental & Orthodontic
-                Clinic, Patna (2007 - 2024)
-              </li>
-            </ul>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
-              aut fugit vitae alias temporibus assumenda dignissimos reiciendis
-              quidem voluptatum velit impedit, ex consectetur suscipit sunt
-              tempora minima facere nobis nemo tempore sed deleniti! Nulla,
-              odio! Minima iste temporibus ipsa perferendis. Quidem corrupti
-              nisi blanditiis magnam, dicta animi, enim ut dolores amet quia est
-              explicabo quibusdam illum minus doloribus natus itaque rem hic
-              nostrum. Odio eaque iure aperiam, est, debitis quaerat itaque eum
-              iste quia beatae ex ducimus dolore. Minus, vitae iusto. Tempore
-              eaque quas officiis, incidunt eligendi repellat voluptates nam
-              modi aut ipsum! Rerum est, quam laborum autem laboriosam
-              veritatis.
-            </p>
-            <br />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-              deleniti voluptatem iusto magni asperiores quas quis vel. Minima
-              repellat culpa, rem quod numquam optio quasi, sunt sapiente,
-              dolores est quibusdam.
-            </p>
-            <ul>
-              <li>18 Years of experience in cosmetic dentistry</li>
-              <li>
-                Cosmetic Dentist at Kailash Hospital & Heart Institute, Noida
-                (2008 - 2009)
-              </li>
-              <li>
-                Cosmetic & Pediatric Dentist at Magadh Oro Dental & Orthodontic
-                Clinic, Patna (2007 - 2024)
-              </li>
-            </ul>
-          </div>
+          <div
+            className="content lg:col-span-2"
+            dangerouslySetInnerHTML={{
+              __html: data.services_connection.nodes[0].content,
+            }}
+          />
           <div className="">
             <div className="lg:sticky top-24">
               <ServicesListCard />
@@ -92,13 +94,24 @@ function page() {
       </div>
       <div className="container">
         <div className="py-10 grid md:grid-cols-2 grid-cols-1 gap-8">
-          <ImageSlider />
-          <ImageSlider />
+          {data.services_connection.nodes[0].before_afters.map(
+            (item, index) => {
+              return (
+                <ImageSlider
+                  key={index + `df-af`}
+                  data={{
+                    after: strApi + item.after.url,
+                    before: strApi + item.before.url,
+                  }}
+                />
+              );
+            }
+          )}
         </div>
       </div>
       <HomeFaqs />
       <ReviewsSlide />
-      <VideoSlider />
+      <VideoSection />
       <ClinicView />
       <BookNow />
       <Footer />

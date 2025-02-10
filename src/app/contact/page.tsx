@@ -1,15 +1,19 @@
-import NavBar from "@/components/layout/NavBar";
-import { PhoneCall } from "lucide-react";
+import BookNow from "@/components/layout/BookNow";
+import ClinicView from "@/components/layout/ClinicView";
+import Footer from "@/components/layout/Footer";
+import HomeFaqs from "@/components/layout/HomeFaqs";
+import PageHeader from "@/components/layout/PageHeader";
+import ReviewsSlide from "@/components/layout/ReviewsSlide";
+import VideoSection from "@/components/layout/VideoSection";
+import { Clock, Clock1, PhoneCall } from "lucide-react";
 import { CiLocationOn } from "react-icons/ci";
 import { MdMarkEmailRead } from "react-icons/md";
 import ContactForm from "./ContacForm";
-import PageHeader from "@/components/layout/PageHeader";
-import ClinicView from "@/components/layout/ClinicView";
-import HomeFaqs from "@/components/layout/HomeFaqs";
-import ReviewsSlide from "@/components/layout/ReviewsSlide";
-import VideoSlider from "@/components/layout/VideoSlider";
-import BookNow from "@/components/layout/BookNow";
-import Footer from "@/components/layout/Footer";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us - Magadh oro Dental",
+};
 
 function page() {
   return (
@@ -44,11 +48,11 @@ function page() {
             </div>
             <div className=" border-primary/10 bg-primary/5 px-7 py-7 mt-7 gap-8 rounded-3xl backdrop-blur-xl flex justify-start items-center relative">
               <div className="">
-                <CiLocationOn size={60} className="text-primary text-center" />
+                <Clock1 size={60} className="text-primary text-center" />
               </div>
               <div className="">
-                <p className="text-xl font-bold">Address</p>
-                <p className="text-primary/80 mt-2">Gurugram, Haryana, India</p>
+                <p className="text-xl font-bold">Opening Hours</p>
+                <p className="text-primary/80 mt-2">24/7 Open </p>
               </div>
             </div>
           </div>
@@ -62,7 +66,7 @@ function page() {
       </div>
       <HomeFaqs />
       <ReviewsSlide />
-      <VideoSlider />
+      <VideoSection />
 
       <BookNow />
       <Footer />

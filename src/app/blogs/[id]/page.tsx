@@ -1,3 +1,4 @@
+import NotFound from "@/app/not-found";
 import BookNow from "@/components/layout/BookNow";
 import ClinicView from "@/components/layout/ClinicView";
 import DoctorSmallCard from "@/components/layout/DoctorSmallCard";
@@ -5,116 +6,127 @@ import Footer from "@/components/layout/Footer";
 import HomeFaqs from "@/components/layout/HomeFaqs";
 import ReviewsSlide from "@/components/layout/ReviewsSlide";
 import ServicesListCard from "@/components/layout/ServicesListCard";
-import VideoSlider from "@/components/layout/VideoSlider";
+import VideoSection from "@/components/layout/VideoSection";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import client, { strApi } from "@/graphql/client";
+import { getFormattedDate } from "@/lib/utils";
+import { gql } from "@apollo/client";
+import { Metadata } from "next";
 import Image from "next/image";
+import BlogComment from "./BlogComment";
+import { BlogPostData } from "./blogData";
 
-function page() {
+export let metadata: Metadata;
+
+const blog_query = gql`
+  query Blog_category(
+    $pagination: PaginationArg
+    $filters: BlogPostFiltersInput
+  ) {
+    blogPosts(pagination: $pagination, filters: $filters) {
+      publishedAt
+      content
+      createdAt
+      description
+      image {
+        url
+      }
+      title
+      slug
+      documentId
+      doctors {
+        name
+        description
+        slug
+        doctor_image {
+          url
+        }
+      }
+      blog_category {
+        category_name
+      }
+    }
+  }
+`;
+
+async function page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+
+  const { data } = await client.query<BlogPostData>({
+    query: blog_query,
+    variables: {
+      filters: {
+        slug: {
+          eq: id,
+        },
+      },
+      pagination: {
+        limit: 1,
+      },
+    },
+  });
+
+  if (data.blogPosts.length === 0) {
+    return <NotFound />;
+  }
+
+  metadata = {
+    title: data.blogPosts[0].title + " - Magadh oro Dental",
+    description: data.blogPosts[0].description,
+  };
+
+  const blog = data.blogPosts[0];
+
   return (
     <div>
       <div className="container py-20 ">
         <Image
           width={1000}
           height={10000}
-          src="https://magadhorodental.com/_next/image?url=https%3A%2F%2Fbackend.magadhorodental.com%2Fapi%2Ffiles%2Fd5ffrkvrjrwdb6t%2Fviw5ezbo7nd20hz%2Ffluoride_treatment_at_magadh_oro_dental_evH9z88CRm.jpg&w=256&q=75"
+          src={strApi + blog.image.url}
           alt="fsd"
           className="w-full h-auto object-cover rounded-2xl"
         />
-        <h1 className="font-bold text-3xl text-left mt-10 text-gray-800">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus perferendis atque sit iste similique minussit iste
-          similique minus.
-        </h1>
+        <h1
+          className="font-bold md:text-3xl text-xl text-left mt-10 text-gray-800"
+          dangerouslySetInnerHTML={{
+            __html: blog.title,
+          }}
+        />
         <div className="flex justify-between items-center mt-10 mb-10">
-          <p className="text-primary/80 font-bold">02/11/2023</p>
+          <p className="text-primary/80 font-bold">
+            {getFormattedDate(blog.createdAt)}
+          </p>
           <Badge className="bg-primary text-white shadow-none text-xs rounded-full ">
-            Teeth Clinging
+            {blog.blog_category.category_name}
           </Badge>
         </div>
         <hr />
         <div className="grid lg:grid-cols-3 lg:gap-14 gap-10">
           <div className=" lg:col-span-2">
-            <div className="mt-10 content ">
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias
-                mollitia asperiores atque quasi, soluta, maiores quam
-                reprehenderit veritatis id optio dolore nobis aliquam dolorum
-                facere libero. Nesciunt, delectus, consectetur neque veniam a
-                voluptate obcaecati cumque reprehenderit dolorum ducimus tempore
-                culpa corrupti atque asperiores iste iure cupiditate consequatur
-                necessitatibus porro quisquam cum. Possimus molestias eveniet
-                cumque ipsam reiciendis nemo dolorum recusandae rem totam
-                voluptatibus a, veritatis, repudiandae quod modi excepturi
-                accusamus ullam corrupti. Dolore, autem eum, optio quasi
-                repellat tempore quod modi maiores quidem sequi quos neque fuga
-                non dolorem quas atque natus placeat et facere, perspiciatis
-                voluptatibus temporibus. Sed, tenetur!
-              </p>
-              <br />
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla
-                sequi incidunt aperiam, cupiditate doloribus aut iste quae non.
-                Delectus ducimus numquam laudantium earum expedita dicta
-                voluptatem nihil eos praesentium voluptatibus, quasi dolorum
-                voluptate quam eaque quaerat tempora inventore consequuntur nam.
-              </p>
-              <br />
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias
-                mollitia asperiores atque quasi, soluta, maiores quam
-                reprehenderit veritatis id optio dolore nobis aliquam dolorum
-                facere libero. Nesciunt, delectus, consectetur neque veniam a
-                voluptate obcaecati cumque reprehenderit dolorum ducimus tempore
-                culpa corrupti atque asperiores iste iure cupiditate consequatur
-                necessitatibus porro quisquam cum. Possimus molestias eveniet
-                cumque ipsam reiciendis nemo dolorum recusandae rem totam
-                voluptatibus a, veritatis, repudiandae quod modi excepturi
-                accusamus ullam corrupti. Dolore, autem eum, optio quasi
-                repellat tempore quod modi maiores quidem sequi quos neque fuga
-                non dolorem quas atque natus placeat et facere, perspiciatis
-                voluptatibus temporibus. Sed, tenetur!
-              </p>
-              <br />
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla
-                sequi incidunt aperiam, cupiditate doloribus aut iste quae non.
-                Delectus ducimus numquam laudantium earum expedita dicta
-                voluptatem nihil eos praesentium voluptatibus, quasi dolorum
-                voluptate quam eaque quaerat tempora inventore consequuntur nam.
-              </p>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias
-                mollitia asperiores atque quasi, soluta, maiores quam
-                reprehenderit veritatis id optio dolore nobis aliquam dolorum
-                facere libero. Nesciunt, delectus, consectetur neque veniam a
-                voluptate obcaecati cumque reprehenderit dolorum ducimus tempore
-                culpa corrupti atque asperiores iste iure cupiditate consequatur
-                necessitatibus porro quisquam cum. Possimus molestias eveniet
-                cumque ipsam reiciendis nemo dolorum recusandae rem totam
-                voluptatibus a, veritatis, repudiandae quod modi excepturi
-                accusamus ullam corrupti. Dolore, autem eum, optio quasi
-                repellat tempore quod modi maiores quidem sequi quos neque fuga
-                non dolorem quas atque natus placeat et facere, perspiciatis
-                voluptatibus temporibus. Sed, tenetur!
-              </p>
-            </div>
+            <div
+              className="mt-10 content "
+              dangerouslySetInnerHTML={{
+                __html: blog.content,
+              }}
+            />
           </div>
           <div className="lg:block hidden mt-10">
-            <div className="">
-              <h2 className="text-2xl font-bold text-primary">
-                Releted Docrors
-              </h2>
-              <div className="flex flex-col gap-3 mt-5">
-                <DoctorSmallCard />
-                <DoctorSmallCard />
-                <DoctorSmallCard />
+            {blog.doctors.length != 0 && (
+              <div className="">
+                <h2 className="text-2xl font-bold text-primary">
+                  Related Doctors
+                </h2>
+                <div className="flex flex-col gap-3 mt-5">
+                  {blog.doctors.map((doctor, i) => (
+                    <DoctorSmallCard
+                      key={doctor.name + doctor + i}
+                      doctor={doctor}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
             <div className=" mt-10 lg:sticky top-20">
               <ServicesListCard />
             </div>
@@ -123,58 +135,10 @@ function page() {
       </div>
       <hr />
       {/* //coments  */}
-      <div className="container py-20">
-        <div className="grid lg:grid-cols-2 gap-10">
-          <div className="">
-            <div className="flex-col gap-5 flex">
-              {Array(3)
-                .fill(0)
-                .map((_, index) => (
-                  <Card className="shadow-none border-none bg-gray-400/5">
-                    <CardHeader>
-                      <h5 className="text-xl font-bold">Name Is Here</h5>
-                      <p className="text-sm">Date: 02/02/2022</p>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-700">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Aperiam ipsum, architecto dolorum pariatur odio qui?
-                        Culpa consequatur omnis nemo rem impedit adipisci.
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
-            </div>
-          </div>
-          <div className="">
-            <div className="grid lg:sticky top-28 grid-cols-2 gap-8 bg-primary/5 px-10 py-8 rounded-3xl">
-              <div className="col-span-2 ">
-                <h1 className="text-xl font-bold text-primary text-center">
-                  Leave A Comment
-                </h1>
-              </div>
-              <div className="">
-                <Label>Your Name</Label>
-                <Input className="shadow-none bg-white border-none" />
-              </div>
-              <div className="">
-                <Label>Email ID</Label>
-                <Input className="shadow-none bg-white border-none" />
-              </div>
-              <div className="col-span-2">
-                <Label>Your Comment</Label>
-                <Textarea className="h-24 bg-white border-none shadow-none" />
-              </div>
-              <div className="col-span-2 flex justify-start items-center">
-                <Button>Post A Comment</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <BlogComment id={blog.documentId} />
       <HomeFaqs />
       <ReviewsSlide />
-      <VideoSlider />
+      <VideoSection />
       <ClinicView />
       <BookNow />
       <Footer />

@@ -30,13 +30,13 @@ function Footer() {
               <div className="w-8 h-8 rounded-full bg-primary flex justify-center items-center text-secondary  ">
                 <PhoneCall size={16} />
               </div>
-              <p className=" text-xl ">+91-9315509430</p>
+              <p className=" text-xl ">+91 9798999722</p>
             </div>
             <div className="flex justify-start items-center gap-4 mt-5">
               <div className="w-8 h-8 rounded-full bg-primary flex justify-center items-center text-secondary  ">
                 <MdEmail size={16} />
               </div>
-              <p className=" text-xl ">info@idealedesigns.com</p>
+              <p className=" text-xl ">magadhorodentalpatna@gmail.com</p>
             </div>
           </div>
           <div className="lg:col-span-3">
@@ -52,7 +52,7 @@ function Footer() {
                       <Link href="/services">Services</Link>
                     </li>
                     <li>
-                      <Link href="/blog">Blogs</Link>
+                      <Link href="/blogs">Blogs</Link>
                     </li>
                   </ul>
                 </div>

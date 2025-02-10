@@ -48,13 +48,12 @@ async function CallSection() {
                 }}
               />
 
-              <p className="text-sm text-primary/60">
-                Call us on{" "}
-                <span className="text-primary font-semibold">
-                  {" "}
-                  +91 9798999722
-                </span>
-              </p>
+              <p
+                className="text-sm text-primary/60"
+                dangerouslySetInnerHTML={{
+                  __html: data?.homeHeader.call.content,
+                }}
+              />
             </div>
           </div>
 
@@ -65,15 +64,19 @@ async function CallSection() {
               </div>
             </div>
             <div className="flex md:justify-start justify-center md:items-start items-center flex-col md:text-left text-center ">
-              <p className="font-bold text-primary">Opening Hours</p>
+              <p
+                className="font-bold text-primary"
+                dangerouslySetInnerHTML={{
+                  __html: data?.homeHeader.timing.title,
+                }}
+              />
 
-              <p className="text-sm text-primary/60 ">
-                Mon to Sat
-                <span className="text-primary font-semibold">
-                  {" "}
-                  9:00AM to 9:00PM
-                </span>
-              </p>
+              <p
+                className="text-sm text-primary/60"
+                dangerouslySetInnerHTML={{
+                  __html: data?.homeHeader.timing.content,
+                }}
+              />
             </div>
           </div>
 
@@ -84,15 +87,19 @@ async function CallSection() {
               </div>
             </div>
             <div className="flex md:justify-start justify-center md:items-start items-center flex-col md:text-left text-center ">
-              <p className="font-bold text-primary">Schedule Appointment</p>
+              <p
+                className="font-bold text-primary"
+                dangerouslySetInnerHTML={{
+                  __html: data?.homeHeader.email.title,
+                }}
+              />
 
-              <p className="text-sm text-primary/60">
-                Mail us :
-                <span className="text-primary font-semibold">
-                  {" "}
-                  appointment@domain.com{" "}
-                </span>
-              </p>
+              <p
+                className="text-sm text-primary/60"
+                dangerouslySetInnerHTML={{
+                  __html: data?.homeHeader.email.content,
+                }}
+              />
             </div>
           </div>
         </div>

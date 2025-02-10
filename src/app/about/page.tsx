@@ -9,43 +9,49 @@ import WhyChooseUs from "@/components/layout/WhyChooseUs";
 import DoctorCard from "./DoctorCard";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import VideoSection from "@/components/layout/VideoSection";
+import client, { strApi } from "@/graphql/client";
+import { gql } from "@apollo/client";
+import { AboutUsData } from "./aboutus";
+import DoctorsSection from "@/components/layout/DoctorsSection";
+import { Metadata } from "next";
 
-function page() {
-  const images = [
-    "https://investin.org/cdn/shop/articles/jafar-ahmed-E285pJbC4uE-unsplash.jpg?v=1634293259",
-    "https://investin.org/cdn/shop/articles/jafar-ahmed-E285pJbC4uE-unsplash.jpg?v=1634293259",
-    "https://investin.org/cdn/shop/articles/jafar-ahmed-E285pJbC4uE-unsplash.jpg?v=1634293259",
-    "https://investin.org/cdn/shop/articles/jafar-ahmed-E285pJbC4uE-unsplash.jpg?v=1634293259",
-    "https://investin.org/cdn/shop/articles/jafar-ahmed-E285pJbC4uE-unsplash.jpg?v=1634293259",
-  ];
+const About_US_query = gql`
+  query AboutUs {
+    aboutUs {
+      Content
+      Images {
+        url
+      }
+    }
+  }
+`;
+export const metadata: Metadata = {
+  title: "About Us - Magadh oro Dental",
+};
+
+async function page() {
+  const { data } = await client.query<AboutUsData>({
+    query: About_US_query,
+  });
+  const images = data.aboutUs.Images.map((image) => strApi + image.url);
   return (
     <div className="">
       <PageHeader title="About Us" path="About Us" />
-      <div className="container pt-20 md:text-lg  text-justify">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem
-        perspiciatis sunt similique, tempore ab earum accusamus harum veniam ut
-        officiis omnis, consectetur ipsum accusantium, iste velit amet
-        praesentium odio exercitationem?
-        <br />
-        <br />
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam
-        quasi non nobis minima itaque, vitae veniam delectus quos libero quo,
-        saepe reiciendis animi molestias distinctio, numquam inventore fuga?
-        Quod tenetur reprehenderit iste eos expedita optio aperiam vitae nisi
-        deleniti. Quod obcaecati aliquid accusantium reprehenderit vitae maxime
-        repudiandae culpa eos voluptate asperiores totam unde nihil, sequi
-        quidem odit explicabo hic sint voluptatum, omnis soluta saepe officiis?
-        Illo aperiam porro sequi ullam quos magni accusamus incidunt. Dolorum
-        blanditiis placeat perferendis doloremque quam autem vero dignissimos
-        corrupti nisi eos quos magnam et voluptate, nihil, ea enim vel
-        consectetur architecto, recusandae quo atque sint!
-      </div>
-
+      <div
+        className="container pt-20 md:text-lg  text-justify content"
+        dangerouslySetInnerHTML={{
+          __html: data.aboutUs.Content,
+        }}
+      />
       <div className="container">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5  my-10">
           <div className="col-span-2 row-span-2">
             <Image
-              src={images[0]}
+              src={
+                images[0] ||
+                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+              }
               width={1000}
               height={1000}
               alt="Big Image"
@@ -54,7 +60,10 @@ function page() {
           </div>
           <div className="col-span-1 row-span-2">
             <Image
-              src={images[1]}
+              src={
+                images[1] ||
+                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+              }
               width={500}
               height={1000}
               alt="Medium Image"
@@ -63,7 +72,10 @@ function page() {
           </div>
           <div className="col-span-1 row-span-1">
             <Image
-              src={images[2]}
+              src={
+                images[2] ||
+                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+              }
               width={500}
               height={500}
               alt="Small Image 1"
@@ -72,7 +84,10 @@ function page() {
           </div>
           <div className="col-span-1 row-span-1">
             <Image
-              src={images[3]}
+              src={
+                images[3] ||
+                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+              }
               width={500}
               height={500}
               alt="Small Image 2"
@@ -81,7 +96,10 @@ function page() {
           </div>
           <div className="col-span-1 row-span-1 md:block hidden">
             <Image
-              src={images[3]}
+              src={
+                images[4] ||
+                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+              }
               width={500}
               height={500}
               alt="Small Image 2"
@@ -91,42 +109,10 @@ function page() {
         </div>
       </div>
 
-      <div className="container my-20">
-        <div className="flex  justify-center items-center gap-2 opacity-80 ">
-          <Image
-            src="/teeth.svg"
-            width={1000}
-            height={1000}
-            alt="About Us"
-            className="object-contain w-4 h-4 "
-          />
-          <p className="text-primary font-semibold">Our Doctors</p>
-        </div>
-        <h1 className="text-gray-800 text-3xl font-bold mt-2 text-center">
-          Meet Our Experienced Dentists
-        </h1>
-        <p className="max-w-[750px] mx-auto text-center text-sm text-gray-500 my-5">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. In quis hic
-          exercitationem esse totam ipsa tempore vero, nihil culpa sapiente ea
-          amet, error cum odit dolore, nobis quidem pariatur consectetur.
-        </p>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 mt-10">
-          <DoctorCard />
-          <DoctorCard />
-          <DoctorCard />
-          <DoctorCard />
-          <DoctorCard />
-          <DoctorCard />
-        </div>
-        <div className="flex justify-center items-center mt-10">
-          <Button className="rounded-full px-8 shadow-none">
-            Meet All Doctors{" "}
-          </Button>
-        </div>
-      </div>
+      <DoctorsSection />
       <HomeFaqs />
       <WhyChooseUs />
-      <VideoSlider />
+      <VideoSection />
       <ClinicView />
       <BookNow />
       <Footer />
