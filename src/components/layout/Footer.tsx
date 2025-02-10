@@ -106,7 +106,7 @@ async function Footer() {
           <div className="lg:col-span-3">
             <div className="grid text-left grid-cols-2 gap-5">
               <div className="">
-                <h1 className="text-xl font-bold ">Quick Links</h1>
+                <h3 className="text-xl font-bold ">Quick Links</h3>
                 <div className="mt-5">
                   <ul className="flex flex-col gap-3  ">
                     <li>
@@ -122,7 +122,7 @@ async function Footer() {
                 </div>
               </div>
               <div className="">
-                <h1 className="text-xl font-bold ">Support</h1>
+                <h3 className="text-xl font-bold ">Support</h3>
                 <div className="mt-5">
                   <ul className="flex flex-col gap-3  ">
                     <li>
@@ -142,7 +142,7 @@ async function Footer() {
             </div>
           </div>
           <div className="">
-            <h1 className="text-xl font-bold ">Follow Us</h1>
+            <h3 className="text-xl font-bold ">Follow Us</h3>
             <div className="flex  lg:grid grid-cols-3 gap-6 mt-6">
               {data.headerTop.TopBar.socailLinks.facebook && (
                 <Link

@@ -110,7 +110,7 @@ async function page() {
       </div>
 
       <DoctorsSection />
-      <HomeFaqs />
+      {/* <HomeFaqs /> */}
       <WhyChooseUs />
       <VideoSection />
       <ClinicView />

@@ -45,7 +45,7 @@ async function page() {
           </AlerImage>
         ))}
       </div>
-      <HomeFaqs />
+      {/* <HomeFaqs /> */}
       <ReviewsSlide />
       <VideoSection />
       <ClinicView />

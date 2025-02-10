@@ -232,7 +232,7 @@ async function page({ params }: { params: Promise<{ slug: string }> }) {
           })}
         </div>
       </div>
-      <HomeFaqs />
+      {/* <HomeFaqs /> */}
       <ReviewsSlide />
       <VideoSection />
       <ClinicView />

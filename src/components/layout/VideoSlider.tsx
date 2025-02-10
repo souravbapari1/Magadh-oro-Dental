@@ -54,7 +54,7 @@ export function VideoItem({
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerPolicy="strict-origin-when-cross-origin"
       allowFullScreen
-      className="aspect-video w-full rounded-3xl shadow-xl shadow-gray-600/5 border-[10px] border-primary bg-black"
+      className="aspect-video w-full mx-auto max-w-[750px] rounded-3xl shadow-xl shadow-gray-600/5 border-[10px] border-primary bg-black"
     />
   );
 }

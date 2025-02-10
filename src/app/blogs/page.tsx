@@ -17,7 +17,7 @@ function page() {
     <div>
       <PageHeader title="Latest Blogs" path="Blogs" />
       <BlogsList />
-      <HomeFaqs />
+      {/* <HomeFaqs /> */}
       <ReviewsSlide />
       <VideoSection />
       <ClinicView />

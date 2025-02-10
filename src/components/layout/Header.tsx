@@ -69,17 +69,17 @@ async function Header() {
           </div>
           <div className="flex lg:justify-start justify-evenly md:gap-20 md:mt-14 mt-5 items-center w-full">
             <div className="flex flex-col justify-center items-center gap-2">
-              <h1 className="md:text-5xl text-4xl font-bold text-primary">
+              <h3 className="md:text-5xl text-4xl font-bold text-primary">
                 20+
-              </h1>
+              </h3>
               <p className="md:text-sm text-xs font-semibold text-primary/60">
                 Years of Experience
               </p>
             </div>
             <div className="flex flex-col justify-center items-center gap-2">
-              <h1 className="md:text-5xl text-4xl font-bold text-primary">
+              <h3 className="md:text-5xl text-4xl font-bold text-primary">
                 24/7
-              </h1>
+              </h3>
               <p className="md:text-sm text-xs font-semibold text-primary/60">
                 Emergency Services
               </p>

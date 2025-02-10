@@ -66,7 +66,7 @@ function page() {
       <div className="py-10">
         <ClinicView />
       </div>
-      <HomeFaqs />
+      {/* <HomeFaqs /> */}
       <ReviewsSlide />
       <VideoSection />
 

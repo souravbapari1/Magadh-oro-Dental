@@ -16,7 +16,7 @@ function ServicesItem({ data }: { data: OurServicesList["services"][number] }) {
         className="object-cover w-full  rounded-2xl shadow-lg h-52"
       />
       <div className="p-3">
-        <h1
+        <h3
           className="text-lg text-gray-800 font-semibold mt-2"
           dangerouslySetInnerHTML={{
             __html: data.service_name,

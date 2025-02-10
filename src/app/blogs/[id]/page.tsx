@@ -136,7 +136,7 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
       <hr />
       {/* //coments  */}
       <BlogComment id={blog.documentId} />
-      <HomeFaqs />
+      {/* <HomeFaqs /> */}
       <ReviewsSlide />
       <VideoSection />
       <ClinicView />
