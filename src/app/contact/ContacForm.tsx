@@ -59,17 +59,16 @@ const ContactForm: React.FC = () => {
     onSuccess: () => {
       toast.dismiss();
       toast.success("Message sent successfully");
-    },
-    onError: () => {
-      toast.dismiss();
-      toast.error("Error sending message");
-      // clear all state
       setFormData({
         name: "",
         email: "",
         mobile: "",
         message: "",
       });
+    },
+    onError: () => {
+      toast.dismiss();
+      toast.error("Error sending message");
     },
   });
 

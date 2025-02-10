@@ -35,7 +35,7 @@ function page() {
               <div className="text-center flex flex-col gap-4 items-center border-r border-primary/10">
                 <PhoneCall className="text-primary text-center" size={40} />
                 <p className="text-xl font-bold">Phone Number </p>
-                <p className="text-primary/80">+91-9315509430</p>
+                <p className="text-primary/80">+91 9798999722</p>
               </div>
               <div className="text-center flex flex-col gap-4 items-center ">
                 <MdMarkEmailRead
@@ -43,7 +43,9 @@ function page() {
                   size={40}
                 />
                 <p className="text-xl font-bold">Email</p>
-                <p className="text-primary/80">info@idealedesigns.com</p>
+                <p className="text-primary/80">
+                  magadhorodentalpatna@gmail.com
+                </p>
               </div>
             </div>
             <div className=" border-primary/10 bg-primary/5 px-7 py-7 mt-7 gap-8 rounded-3xl backdrop-blur-xl flex justify-start items-center relative">

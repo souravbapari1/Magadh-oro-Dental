@@ -30,5 +30,6 @@ ${data.message}
 
 `,
   });
+  console.log(info);
   return info;
 };
