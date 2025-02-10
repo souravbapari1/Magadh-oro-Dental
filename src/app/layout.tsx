@@ -11,6 +11,7 @@ import NavBar from "@/components/layout/NavBar";
 import Client from "./client";
 import NextTopLoader from "nextjs-toploader";
 import AlertVideo from "@/components/layout/AlertVideo";
+import FloatIcon from "@/components/layout/FloatIcon";
 
 const geistSans = Jost({
   variable: "--font-geist-sans",
@@ -46,6 +47,7 @@ export default function RootLayout({
             {children}
           </div>
         </Client>
+        <FloatIcon />
       </body>
     </html>
   );
