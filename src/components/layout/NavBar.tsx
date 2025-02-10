@@ -142,13 +142,15 @@ async function NavBar() {
                 <Menu size={28} className="text-primary" />
               </MobileNavBarItem>
             </div>
-            <Image
-              alt="logo"
-              src="/logo.jpeg"
-              width={1000}
-              height={1000}
-              className="object-contain h-14 w-auto"
-            />
+            <Link href={"/"}>
+              <Image
+                alt="logo"
+                src="/logo.jpeg"
+                width={1000}
+                height={1000}
+                className="object-contain h-14 w-auto"
+              />
+            </Link>
           </div>
           <div className="h-full lg:flex hidden justify-center items-center gap-4 font-[550] text-sm">
             <NavItem />

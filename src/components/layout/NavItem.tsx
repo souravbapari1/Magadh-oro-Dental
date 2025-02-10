@@ -50,7 +50,7 @@ function NavItem() {
             <Link href="/pages/privacy-policy">Privacy Policy</Link>
           </li>
           <li>
-            <Link href="/pages/terms-and-service">Terms of Service</Link>
+            <Link href="/pages/terms-and-service">Terms and Service</Link>
           </li>
         </ul>
       </li>
