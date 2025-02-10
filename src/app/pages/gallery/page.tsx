@@ -10,6 +10,7 @@ import { gql } from "@apollo/client";
 import { Metadata } from "next";
 import Image from "next/image";
 import { GalleryData } from "./gallery";
+import AlerImage from "@/components/layout/AlertImage";
 export const metadata: Metadata = {
   title: "Gallery - Magadh oro Dental",
 };
@@ -30,16 +31,18 @@ async function page() {
   return (
     <div>
       <PageHeader title="Gallery" path="Pages / Gallery" />
-      <div className="grid grid-cols-2 gap-6 container py-20">
+      <div className="grid md:grid-cols-2 gap-6 container py-20">
         {data.gallery.images.map((e, index) => (
-          <Image
-            src={strApi + e.url}
-            width={1000}
-            height={1000}
-            alt={e.name}
-            key={index + `image`}
-            className="object-cover w-full aspect-video md:block hidden bg-primary/5"
-          />
+          <AlerImage image={strApi + e.url}>
+            <Image
+              src={strApi + e.url}
+              width={1000}
+              height={1000}
+              alt={e.name}
+              key={index + `image`}
+              className="object-cover w-full aspect-video   bg-primary/5"
+            />
+          </AlerImage>
         ))}
       </div>
       <HomeFaqs />

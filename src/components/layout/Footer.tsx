@@ -75,7 +75,7 @@ async function Footer() {
   return (
     <div className="border-t border-white/10 ">
       <div className="container ">
-        <div className="w-full grid lg:grid-cols-6 md:grid-cols-3 md:gap-3 gap-6 md:py-20 py-10 ">
+        <div className="w-full grid lg:grid-cols-6  md:gap-3 gap-6 md:py-20 py-10 ">
           <div className=" lg:col-span-2">
             <Link href="/">
               <Image
@@ -87,16 +87,20 @@ async function Footer() {
               />
             </Link>
             <div className="flex justify-start items-center gap-4 mt-6">
-              <div className="w-8 h-8 rounded-full bg-primary flex justify-center items-center text-secondary  ">
+              <div className="w-8 h-8 rounded-full bg-primary hidden md:flex justify-center items-center text-secondary  ">
                 <PhoneCall size={16} />
               </div>
-              <p className=" text-xl ">{data?.headerTop?.TopBar?.Mobile}</p>
+              <p className=" text-sm md:text-xl ">
+                {data?.headerTop?.TopBar?.Mobile}
+              </p>
             </div>
             <div className="flex justify-start items-center gap-4 mt-5">
-              <div className="w-8 h-8 rounded-full bg-primary flex justify-center items-center text-secondary  ">
+              <div className="w-8 h-8 rounded-full  bg-primary hidden md:flex justify-center items-center text-secondary  ">
                 <MdEmail size={16} />
               </div>
-              <p className=" text-xl ">{data?.headerTop?.TopBar?.Email}</p>
+              <p className=" text-sm md:text-xl ">
+                {data?.headerTop?.TopBar?.Email}
+              </p>
             </div>
           </div>
           <div className="lg:col-span-3">
@@ -139,7 +143,7 @@ async function Footer() {
           </div>
           <div className="">
             <h1 className="text-xl font-bold ">Follow Us</h1>
-            <div className="flex justify-start items-center gap-6 mt-6">
+            <div className="flex  lg:grid grid-cols-3 gap-6 mt-6">
               {data.headerTop.TopBar.socailLinks.facebook && (
                 <Link
                   target={data.headerTop.TopBar.socailLinks.facebook.open_on}
