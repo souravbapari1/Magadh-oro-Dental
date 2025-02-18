@@ -13,6 +13,7 @@ export interface BlogPost {
   documentId: string;
   doctors: Doctor[];
   blog_category: BlogCategory;
+  Metadata?: Metadata;
 }
 
 export interface Image {
@@ -22,8 +23,8 @@ export interface Image {
 export interface Doctor {
   name: string;
   description: string;
-  doctor_image: DoctorImage;
   slug: string;
+  doctor_image: DoctorImage;
 }
 
 export interface DoctorImage {
@@ -32,4 +33,9 @@ export interface DoctorImage {
 
 export interface BlogCategory {
   category_name: string;
+}
+
+export interface Metadata {
+  description: string;
+  title: string;
 }

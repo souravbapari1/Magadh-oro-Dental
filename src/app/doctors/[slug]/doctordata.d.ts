@@ -1,7 +1,6 @@
 export interface DoctorData {
   doctors: Doctor[];
 }
-
 export interface Doctor {
   slug: string;
   position: string;
@@ -15,6 +14,7 @@ export interface Doctor {
   education: Education[];
   out_and_about: OutAndAbout[];
   social_links: SocialLinks;
+  Metadata: Metadata;
 }
 
 export interface BeforeAfter {
@@ -95,4 +95,9 @@ export interface Youtube {
   link_url: string;
   link_text: string;
   id: string;
+}
+
+export interface Metadata {
+  title: string;
+  description: string;
 }

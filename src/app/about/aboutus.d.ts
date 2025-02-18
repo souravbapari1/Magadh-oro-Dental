@@ -11,3 +11,16 @@ export interface AboutUs {
 export interface Image {
   url: string;
 }
+
+export interface AboutUsMetaData {
+  mataData: MataData;
+}
+
+export interface MataData {
+  AboutUsMetaData: AboutUsMetaData;
+}
+
+export interface AboutUsMetaData {
+  title: string;
+  description: string;
+}

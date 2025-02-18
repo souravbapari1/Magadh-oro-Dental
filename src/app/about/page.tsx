@@ -12,9 +12,10 @@ import { Button } from "@/components/ui/button";
 import VideoSection from "@/components/layout/VideoSection";
 import client, { strApi } from "@/graphql/client";
 import { gql } from "@apollo/client";
-import { AboutUsData } from "./aboutus";
+import { AboutUsData, AboutUsMetaData } from "./aboutus";
 import DoctorsSection from "@/components/layout/DoctorsSection";
 import { Metadata } from "next";
+import Head from "next/head";
 
 const About_US_query = gql`
   query AboutUs {
@@ -26,89 +27,112 @@ const About_US_query = gql`
     }
   }
 `;
-export const metadata: Metadata = {
-  title: "About Us - Magadh oro Dental",
-};
+const ABOUT_US_META_QUERY = gql`
+  query MataData {
+    mataData {
+      AboutUsMetaData {
+        title
+        description
+      }
+    }
+  }
+`;
 
 async function page() {
+  const metadata = await client.query<AboutUsMetaData>({
+    query: ABOUT_US_META_QUERY,
+  });
   const { data } = await client.query<AboutUsData>({
     query: About_US_query,
   });
   const images = data.aboutUs.Images.map((image) => strApi + image.url);
+
   return (
-    <div className="">
-      <PageHeader title="About Us" path="About Us" />
-      <div
-        className="container pt-20 md:text-lg  text-justify content"
-        dangerouslySetInnerHTML={{
-          __html: data.aboutUs.Content,
-        }}
-      />
-      <div className="container">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5  my-10">
-          <div className="col-span-2 row-span-2">
-            <Image
-              src={
-                images[0] ||
-                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
-              }
-              width={1000}
-              height={1000}
-              alt="Big Image"
-              className="object-cover w-full h-full rounded-lg"
-            />
-          </div>
-          <div className="col-span-1 row-span-2">
-            <Image
-              src={
-                images[1] ||
-                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
-              }
-              width={500}
-              height={1000}
-              alt="Medium Image"
-              className="object-cover w-full h-full rounded-lg"
-            />
-          </div>
-          <div className="col-span-1 row-span-1">
-            <Image
-              src={
-                images[2] ||
-                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
-              }
-              width={500}
-              height={500}
-              alt="Small Image 1"
-              className="object-cover w-full h-full rounded-lg"
-            />
-          </div>
-          <div className="col-span-1 row-span-1">
-            <Image
-              src={
-                images[3] ||
-                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
-              }
-              width={500}
-              height={500}
-              alt="Small Image 2"
-              className="object-cover w-full h-full rounded-lg"
-            />
-          </div>
-          <div className="col-span-1 row-span-1 md:block hidden">
-            <Image
-              src={
-                images[4] ||
-                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
-              }
-              width={500}
-              height={500}
-              alt="Small Image 2"
-              className="object-cover w-full h-full rounded-lg"
-            />
+    <>
+      <div>
+        <Head>
+          <title>{metadata?.data?.mataData.AboutUsMetaData?.title}</title>
+          <meta
+            name="description"
+            content={metadata?.data.mataData?.AboutUsMetaData.description}
+          />
+          <link rel="canonical" href="" />
+        </Head>
+      </div>
+      <div className="">
+        <PageHeader title="About Us" path="About Us" />
+        <div
+          className="container pt-20 md:text-lg  text-justify content"
+          dangerouslySetInnerHTML={{
+            __html: data.aboutUs.Content,
+          }}
+        />
+        <div className="container">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-5  my-10">
+            <div className="col-span-2 row-span-2">
+              <Image
+                src={
+                  images[0] ||
+                  "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+                }
+                width={1000}
+                height={1000}
+                alt="Big Image"
+                className="object-cover w-full h-full rounded-lg"
+              />
+            </div>
+            <div className="col-span-1 row-span-2">
+              <Image
+                src={
+                  images[1] ||
+                  "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+                }
+                width={500}
+                height={1000}
+                alt="Medium Image"
+                className="object-cover w-full h-full rounded-lg"
+              />
+            </div>
+            <div className="col-span-1 row-span-1">
+              <Image
+                src={
+                  images[2] ||
+                  "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+                }
+                width={500}
+                height={500}
+                alt="Small Image 1"
+                className="object-cover w-full h-full rounded-lg"
+              />
+            </div>
+            <div className="col-span-1 row-span-1">
+              <Image
+                src={
+                  images[3] ||
+                  "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+                }
+                width={500}
+                height={500}
+                alt="Small Image 2"
+                className="object-cover w-full h-full rounded-lg"
+              />
+            </div>
+            <div className="col-span-1 row-span-1 md:block hidden">
+              <Image
+                src={
+                  images[4] ||
+                  "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+                }
+                width={500}
+                height={500}
+                alt="Small Image 2"
+                className="object-cover w-full h-full rounded-lg"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
+<<<<<<< Updated upstream
       <DoctorsSection />
       <HomeFaqs />
       <WhyChooseUs />
@@ -117,6 +141,17 @@ async function page() {
       <BookNow />
       <Footer />
     </div>
+=======
+        <DoctorsSection />
+        {/* <HomeFaqs /> */}
+        <WhyChooseUs />
+        <VideoSection />
+        <ClinicView />
+        <BookNow />
+        <Footer />
+      </div>
+    </>
+>>>>>>> Stashed changes
   );
 }
 
