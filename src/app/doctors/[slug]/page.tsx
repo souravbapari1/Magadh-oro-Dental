@@ -246,11 +246,6 @@ async function page({ params }: { params: Promise<{ slug: string }> }) {
       <BookNow />
       <Footer />
     </div>
-
-
-    </>
-
-
   );
 }
 
