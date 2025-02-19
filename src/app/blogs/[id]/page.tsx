@@ -154,20 +154,7 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
         <BookNow />
         <Footer />
       </div>
-<<<<<<< Updated upstream
-      <hr />
-      {/* //coments  */}
-      <BlogComment id={blog.documentId} />
-      <HomeFaqs />
-      <ReviewsSlide />
-      <VideoSection />
-      <ClinicView />
-      <BookNow />
-      <Footer />
-    </div>
-=======
     </>
->>>>>>> Stashed changes
   );
 }
 

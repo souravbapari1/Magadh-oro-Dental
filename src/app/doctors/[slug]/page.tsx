@@ -254,17 +254,7 @@ async function page({ params }: { params: Promise<{ slug: string }> }) {
         <BookNow />
         <Footer />
       </div>
-<<<<<<< Updated upstream
-      <HomeFaqs />
-      <ReviewsSlide />
-      <VideoSection />
-      <ClinicView />
-      <BookNow />
-      <Footer />
-    </div>
-=======
     </>
->>>>>>> Stashed changes
   );
 }
 

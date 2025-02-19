@@ -38,120 +38,106 @@ const ABOUT_US_META_QUERY = gql`
   }
 `;
 
-async function page() {
-  const metadata = await client.query<AboutUsMetaData>({
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<AboutUsMetaData>({
     query: ABOUT_US_META_QUERY,
   });
+
+  return {
+    title: metadataResponse.data.mataData.AboutUsMetaData.title,
+
+    description: metadataResponse.data.mataData.AboutUsMetaData.description,
+  };
+};
+
+async function page() {
   const { data } = await client.query<AboutUsData>({
     query: About_US_query,
   });
   const images = data.aboutUs.Images.map((image) => strApi + image.url);
 
   return (
-    <>
-      <div>
-        <Head>
-          <title>{metadata?.data?.mataData.AboutUsMetaData?.title}</title>
-          <meta
-            name="description"
-            content={metadata?.data.mataData?.AboutUsMetaData.description}
-          />
-          <link rel="canonical" href="" />
-        </Head>
-      </div>
-      <div className="">
-        <PageHeader title="About Us" path="About Us" />
-        <div
-          className="container pt-20 md:text-lg  text-justify content"
-          dangerouslySetInnerHTML={{
-            __html: data.aboutUs.Content,
-          }}
-        />
-        <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-5  my-10">
-            <div className="col-span-2 row-span-2">
-              <Image
-                src={
-                  images[0] ||
-                  "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
-                }
-                width={1000}
-                height={1000}
-                alt="Big Image"
-                className="object-cover w-full h-full rounded-lg"
-              />
-            </div>
-            <div className="col-span-1 row-span-2">
-              <Image
-                src={
-                  images[1] ||
-                  "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
-                }
-                width={500}
-                height={1000}
-                alt="Medium Image"
-                className="object-cover w-full h-full rounded-lg"
-              />
-            </div>
-            <div className="col-span-1 row-span-1">
-              <Image
-                src={
-                  images[2] ||
-                  "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
-                }
-                width={500}
-                height={500}
-                alt="Small Image 1"
-                className="object-cover w-full h-full rounded-lg"
-              />
-            </div>
-            <div className="col-span-1 row-span-1">
-              <Image
-                src={
-                  images[3] ||
-                  "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
-                }
-                width={500}
-                height={500}
-                alt="Small Image 2"
-                className="object-cover w-full h-full rounded-lg"
-              />
-            </div>
-            <div className="col-span-1 row-span-1 md:block hidden">
-              <Image
-                src={
-                  images[4] ||
-                  "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
-                }
-                width={500}
-                height={500}
-                alt="Small Image 2"
-                className="object-cover w-full h-full rounded-lg"
-              />
-            </div>
+    <div>
+      <PageHeader title="About Us" path="About Us" />
+      <div
+        className="container pt-20 md:text-lg  text-justify content"
+        dangerouslySetInnerHTML={{
+          __html: data.aboutUs.Content,
+        }}
+      />
+      <div className="container">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5  my-10">
+          <div className="col-span-2 row-span-2">
+            <Image
+              src={
+                images[0] ||
+                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+              }
+              width={1000}
+              height={1000}
+              alt="Big Image"
+              className="object-cover w-full h-full rounded-lg"
+            />
+          </div>
+          <div className="col-span-1 row-span-2">
+            <Image
+              src={
+                images[1] ||
+                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+              }
+              width={500}
+              height={1000}
+              alt="Medium Image"
+              className="object-cover w-full h-full rounded-lg"
+            />
+          </div>
+          <div className="col-span-1 row-span-1">
+            <Image
+              src={
+                images[2] ||
+                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+              }
+              width={500}
+              height={500}
+              alt="Small Image 1"
+              className="object-cover w-full h-full rounded-lg"
+            />
+          </div>
+          <div className="col-span-1 row-span-1">
+            <Image
+              src={
+                images[3] ||
+                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+              }
+              width={500}
+              height={500}
+              alt="Small Image 2"
+              className="object-cover w-full h-full rounded-lg"
+            />
+          </div>
+          <div className="col-span-1 row-span-1 md:block hidden">
+            <Image
+              src={
+                images[4] ||
+                "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500"
+              }
+              width={500}
+              height={500}
+              alt="Small Image 2"
+              className="object-cover w-full h-full rounded-lg"
+            />
           </div>
         </div>
+      </div>
 
-<<<<<<< Updated upstream
       <DoctorsSection />
-      <HomeFaqs />
+      {/* <HomeFaqs /> */}
       <WhyChooseUs />
       <VideoSection />
       <ClinicView />
       <BookNow />
       <Footer />
     </div>
-=======
-        <DoctorsSection />
-        {/* <HomeFaqs /> */}
-        <WhyChooseUs />
-        <VideoSection />
-        <ClinicView />
-        <BookNow />
-        <Footer />
-      </div>
-    </>
->>>>>>> Stashed changes
   );
 }
 

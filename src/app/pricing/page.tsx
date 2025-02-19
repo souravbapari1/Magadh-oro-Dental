@@ -83,17 +83,7 @@ async function page() {
         <BookNow />
         <Footer />
       </div>
-<<<<<<< Updated upstream
-      <HomeFaqs />
-      <ReviewsSlide />
-      <VideoSection />
-      <ClinicView />
-      <BookNow />
-      <Footer />
-    </div>
-=======
     </>
->>>>>>> Stashed changes
   );
 }
 
