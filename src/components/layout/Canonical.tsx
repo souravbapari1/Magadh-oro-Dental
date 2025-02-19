@@ -1,20 +1,13 @@
-"use client";
+import { headers } from "next/headers";
 
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-
-const Canonical = () => {
-  const pathname = usePathname();
-  //   console.log(pathname);
-  const [canonicalUrl, setCanonicalUrl] = useState("");
-
-  useEffect(() => {
-    setCanonicalUrl(`https://magadhorodental.com${pathname}`);
-  }, [pathname]);
-
-  if (!canonicalUrl) return null;
-
-  return <link rel="canonical" href={canonicalUrl} />;
+const Canonical = async () => {
+  const header = await headers();
+  return (
+    <link
+      rel="canonical"
+      href={`https://magadhorodental.com${header.get("x-url")}`}
+    />
+  );
 };
 
 export default Canonical;

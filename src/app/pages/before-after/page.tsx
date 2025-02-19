@@ -12,7 +12,7 @@ import { BeforeAfterData } from "./beforeafter";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Before After Compare - Magadh oro Dental",
+  title: "Before After Compare  | Magadh oro Dental",
 };
 
 const before_after_query = gql`

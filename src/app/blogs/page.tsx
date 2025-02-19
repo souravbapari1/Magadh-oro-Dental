@@ -9,7 +9,7 @@ import { Metadata } from "next";
 import BlogsList from "./BlogsList";
 
 export const metadata: Metadata = {
-  title: "Blogs - Magadh oro Dental",
+  title: "Blogs  | Magadh oro Dental",
 };
 
 function page() {

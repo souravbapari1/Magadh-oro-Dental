@@ -12,7 +12,7 @@ import { Metadata } from "next";
 import DoctorCard from "../about/DoctorCard";
 
 export const metadata: Metadata = {
-  title: "Doctors - Magadh oro Dental",
+  title: "Doctors  | Magadh oro Dental",
 };
 
 const doctors_query = gql`

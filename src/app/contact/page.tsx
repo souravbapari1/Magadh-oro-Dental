@@ -12,7 +12,7 @@ import ContactForm from "./ContacForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us - Magadh oro Dental",
+  title: "Contact Us  | Magadh oro Dental",
 };
 
 function page() {

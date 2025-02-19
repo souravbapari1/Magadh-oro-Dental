@@ -1,7 +1,6 @@
 import BookNow from "@/components/layout/BookNow";
 import ClinicView from "@/components/layout/ClinicView";
 import Footer from "@/components/layout/Footer";
-import HomeFaqs from "@/components/layout/HomeFaqs";
 import PageHeader from "@/components/layout/PageHeader";
 import ReviewsSlide from "@/components/layout/ReviewsSlide";
 import ServicesItem from "@/components/layout/ServicesItem";
@@ -9,10 +8,7 @@ import VideoSection from "@/components/layout/VideoSection";
 import client from "@/graphql/client";
 import { gql } from "@apollo/client";
 import { ServiceData } from "./service";
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Services - Magadh oro Dental",
-};
+
 const services_query = gql`
   query Image {
     services {
