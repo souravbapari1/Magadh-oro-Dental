@@ -50,7 +50,7 @@ async function ServicesView() {
           </p>
         </div>
 
-        <h1
+        <h2
           className="text-gray-800 text-3xl font-bold mt-2 text-center"
           dangerouslySetInnerHTML={{
             __html: data.ourServicesList.basicHeader.title,

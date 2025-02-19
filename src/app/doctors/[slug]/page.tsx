@@ -238,6 +238,7 @@ async function page({ params }: { params: Promise<{ slug: string }> }) {
           })}
         </div>
       </div>
+
       {/* <HomeFaqs /> */}
       <ReviewsSlide />
       <VideoSection />
@@ -245,6 +246,11 @@ async function page({ params }: { params: Promise<{ slug: string }> }) {
       <BookNow />
       <Footer />
     </div>
+
+
+    </>
+
+
   );
 }
 

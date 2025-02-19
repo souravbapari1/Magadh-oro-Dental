@@ -52,7 +52,7 @@ async function HomeFaqs() {
                 {data.faqSection.basicHeader.top_title}
               </p>
             </div>
-            <h1
+            <h2
               className="md:text-3xl text-2xl font-bold text-gray-900 mt-3 md:text-left text-center "
               dangerouslySetInnerHTML={{
                 __html: data.faqSection.basicHeader.title,
