@@ -20,7 +20,7 @@ async function ServicesListCard() {
   });
   return (
     <div className="w-full bg-gradient-to-tr  from-primary to-primary/80   rounded-3xl p-7 px-8">
-      <h5 className="text-white text-2xl font-bold">Our Services</h5>
+      <h3 className="text-white text-2xl font-bold">Our Services</h3>
       <div className="py-3">
         <ul className="list-disc pl-4 space-y-2 text-white text-sm">
           {data.services.map((service, index) => (

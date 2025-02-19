@@ -49,7 +49,7 @@ async function ClinicView() {
             {data.clinicsSection.basicHeader.top_title}
           </p>
         </div>
-        <h1
+        <h2
           className="text-gray-800 text-3xl font-bold mt-2 text-center"
           dangerouslySetInnerHTML={{
             __html: data.clinicsSection.basicHeader.title,

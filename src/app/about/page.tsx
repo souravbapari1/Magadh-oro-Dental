@@ -134,7 +134,7 @@ async function page() {
 
 <<<<<<< Updated upstream
       <DoctorsSection />
-      <HomeFaqs />
+      {/* <HomeFaqs /> */}
       <WhyChooseUs />
       <VideoSection />
       <ClinicView />

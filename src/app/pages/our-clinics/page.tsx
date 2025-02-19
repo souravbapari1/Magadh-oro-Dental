@@ -44,7 +44,7 @@ async function page() {
           ))}
         </div>
       </div>
-      <HomeFaqs />
+      {/* <HomeFaqs /> */}
       <ReviewsSlide />
       <VideoSection />
 

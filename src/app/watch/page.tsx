@@ -51,7 +51,7 @@ function watch() {
           </Button>
         </div>
       </div>
-      <HomeFaqs />
+      {/* <HomeFaqs /> */}
       <ReviewsSlide />
       <VideoSection />
       <ClinicView />

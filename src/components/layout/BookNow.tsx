@@ -9,9 +9,9 @@ function BookNow() {
       <div className="absolute inset-0 bg-primary/50"></div>
 
       <div className="relative flex justify-center items-center flex-col gap-6 container text-center">
-        <h1 className="text-3xl md:text-4xl font-bold text-white drop-shadow-lg">
+        <h2 className="text-3xl md:text-4xl font-bold text-white drop-shadow-lg">
           Book Your Visit Online
-        </h1>
+        </h2>
 
         <p className="max-w-[600px] text-white/80 text-base ">
           View available appointments and enjoy dentistry done right. +FREE
