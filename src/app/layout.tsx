@@ -12,7 +12,7 @@ import Client from "./client";
 import NextTopLoader from "nextjs-toploader";
 import AlertVideo from "@/components/layout/AlertVideo";
 import FloatIcon from "@/components/layout/FloatIcon";
-
+import Canonical from "@/components/layout/Canonical";
 const geistSans = Jost({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -36,6 +36,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Canonical />
+      </head>
       <body
         className={`${geistSans.className} ${geistMono.variable} antialiased`}
       >

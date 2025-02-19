@@ -75,8 +75,6 @@ async function page() {
       <BookNow />
       <Footer />
     </div>
-    </>
-
   );
 }
 
