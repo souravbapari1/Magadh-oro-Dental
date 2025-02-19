@@ -7,10 +7,32 @@ import ReviewsSlide from "@/components/layout/ReviewsSlide";
 import VideoSection from "@/components/layout/VideoSection";
 import { VideoItem } from "@/components/layout/VideoSlider";
 import { Button } from "@/components/ui/button";
+import client from "@/graphql/client";
+import { gql } from "@apollo/client";
 import { Metadata } from "next";
+import { WatchUsMetaData } from "./watch";
+import { TabTitle } from "../constant";
 
-export const metadata: Metadata = {
-  title: "Watch Videos - Magadh oro Dental",
+const WATCH_META_QUERY = gql`
+  query WatchMetaData {
+    mataData {
+      WatchUsMetaData {
+        title
+        description
+      }
+    }
+  }
+`;
+
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<WatchUsMetaData>({
+    query: WATCH_META_QUERY,
+  });
+
+  return {
+    title: metadataResponse.data.mataData.WatchUsMetaData.title + TabTitle,
+    description: metadataResponse.data.mataData.WatchUsMetaData.description,
+  };
 };
 
 function watch() {

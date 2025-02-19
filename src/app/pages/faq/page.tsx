@@ -14,10 +14,8 @@ import client from "@/graphql/client";
 import { gql } from "@apollo/client";
 import { Metadata } from "next";
 import React from "react";
-
-export const metadata: Metadata = {
-  title: "Frequently Asked Questions - Magadh oro Dental",
-};
+import { FrequentlyAskedDataTpye } from "./Faqs";
+import { TabTitle } from "@/app/constant";
 
 const FAQ_QUERY = gql`
   query FaqS {
@@ -26,17 +24,29 @@ const FAQ_QUERY = gql`
       question
       documentId
     }
+    mataData {
+      FaqsMetaData {
+        description
+        title
+      }
+    }
   }
 `;
 
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<FrequentlyAskedDataTpye>({
+    query: FAQ_QUERY,
+  });
+
+  return {
+    title: metadataResponse.data.mataData.FaqsMetaData.title + " " + TabTitle,
+
+    description: metadataResponse.data.mataData.FaqsMetaData.description,
+  };
+};
+
 async function page() {
-  const { data } = await client.query<{
-    faqS: {
-      answer: string;
-      question: string;
-      documentId: string;
-    }[];
-  }>({
+  const { data } = await client.query<FrequentlyAskedDataTpye>({
     query: FAQ_QUERY,
   });
 

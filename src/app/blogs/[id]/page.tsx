@@ -72,6 +72,11 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
     },
   });
 
+  metadata = {
+    title: data.blogPosts[0].Metadata?.title + TabTitle,
+    description: data?.blogPosts[0].Metadata?.description,
+  };
+
   if (data.blogPosts.length === 0) {
     return <NotFound />;
   }
@@ -79,82 +84,61 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
   const blog = data.blogPosts[0];
 
   return (
-    <>
-      <div>
-        <Head>
-          <Head>
-            <title>{blog.Metadata?.title + TabTitle}</title>
-            <meta name="description" content={blog.Metadata?.description} />
-            <link rel="canonical" href="" />
-          </Head>
-        </Head>
-      </div>
-      <div>
-        <div className="container py-20 ">
-          <Image
-            width={1000}
-            height={10000}
-            src={strApi + blog.image.url}
-            alt="fsd"
-            className="w-full h-auto object-cover rounded-2xl"
-          />
-          <h1
-            className="font-bold md:text-3xl text-xl text-left mt-10 text-gray-800"
-            dangerouslySetInnerHTML={{
-              __html: blog.title,
-            }}
-          />
-          <div className="flex justify-between items-center mt-10 mb-10">
-            <p className="text-primary/80 font-bold">
-              {getFormattedDate(blog.createdAt)}
-            </p>
-            <Badge className="bg-primary text-white shadow-none text-xs rounded-full ">
-              {blog.blog_category.category_name}
-            </Badge>
+    <div>
+      <div className="container py-20 ">
+        <Image
+          width={1000}
+          height={10000}
+          src={strApi + blog.image.url}
+          alt="fsd"
+          className="w-full h-auto object-cover rounded-2xl"
+        />
+        <h1
+          className="font-bold md:text-3xl text-xl text-left mt-10 text-gray-800"
+          dangerouslySetInnerHTML={{
+            __html: blog.title,
+          }}
+        />
+        <div className="flex justify-between items-center mt-10 mb-10">
+          <p className="text-primary/80 font-bold">
+            {getFormattedDate(blog.createdAt)}
+          </p>
+          <Badge className="bg-primary text-white shadow-none text-xs rounded-full ">
+            {blog.blog_category.category_name}
+          </Badge>
+        </div>
+        <hr />
+        <div className="grid lg:grid-cols-3 lg:gap-14 gap-10">
+          <div className=" lg:col-span-2">
+            <div
+              className="mt-10 content "
+              dangerouslySetInnerHTML={{
+                __html: blog.content,
+              }}
+            />
           </div>
-          <hr />
-          <div className="grid lg:grid-cols-3 lg:gap-14 gap-10">
-            <div className=" lg:col-span-2">
-              <div
-                className="mt-10 content "
-                dangerouslySetInnerHTML={{
-                  __html: blog.content,
-                }}
-              />
-            </div>
-            <div className="lg:block hidden mt-10">
-              {blog.doctors.length != 0 && (
-                <div className="">
-                  <h2 className="text-2xl font-bold text-primary">
-                    Related Doctors
-                  </h2>
-                  <div className="flex flex-col gap-3 mt-5">
-                    {blog.doctors.map((doctor, i) => (
-                      <DoctorSmallCard
-                        key={doctor.name + doctor + i}
-                        doctor={doctor}
-                      />
-                    ))}
-                  </div>
+          <div className="lg:block hidden mt-10">
+            {blog.doctors.length != 0 && (
+              <div className="">
+                <h2 className="text-2xl font-bold text-primary">
+                  Related Doctors
+                </h2>
+                <div className="flex flex-col gap-3 mt-5">
+                  {blog.doctors.map((doctor, i) => (
+                    <DoctorSmallCard
+                      key={doctor.name + doctor + i}
+                      doctor={doctor}
+                    />
+                  ))}
                 </div>
-              )}
-              <div className=" mt-10 lg:sticky top-20">
-                <ServicesListCard />
               </div>
+            )}
+            <div className=" mt-10 lg:sticky top-20">
+              <ServicesListCard />
             </div>
           </div>
         </div>
-        <hr />
-        {/* //coments  */}
-        <BlogComment id={blog.documentId} />
-        {/* <HomeFaqs /> */}
-        <ReviewsSlide />
-        <VideoSection />
-        <ClinicView />
-        <BookNow />
-        <Footer />
       </div>
-<<<<<<< Updated upstream
       <hr />
       {/* //coments  */}
       <BlogComment id={blog.documentId} />
@@ -165,9 +149,6 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
       <BookNow />
       <Footer />
     </div>
-=======
-    </>
->>>>>>> Stashed changes
   );
 }
 

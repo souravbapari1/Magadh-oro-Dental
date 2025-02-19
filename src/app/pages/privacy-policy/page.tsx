@@ -8,15 +8,36 @@ import VideoSection from "@/components/layout/VideoSection";
 import ClinicView from "@/components/layout/ClinicView";
 import BookNow from "@/components/layout/BookNow";
 import Footer from "@/components/layout/Footer";
+import { Metadata } from "next";
+import { TabTitle } from "@/app/constant";
 
 const PRIVACY_POLICY_QUERY = gql`
   query PrivacyPolicy {
     privacyPolicy {
       content
     }
+    mataData {
+      PrivacyPolicyMetadata {
+        description
+        title
+      }
+    }
   }
 `;
 
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<PrivacyPolicyData>({
+    query: PRIVACY_POLICY_QUERY,
+  });
+
+  return {
+    title:
+      metadataResponse.data.mataData.PrivacyPolicyMetadata.title + TabTitle,
+
+    description:
+      metadataResponse.data.mataData.PrivacyPolicyMetadata.description,
+  };
+};
 async function page() {
   const { data } = await client.query<PrivacyPolicyData>({
     query: PRIVACY_POLICY_QUERY,

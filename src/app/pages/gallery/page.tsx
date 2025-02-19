@@ -11,9 +11,8 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { GalleryData } from "./gallery";
 import AlerImage from "@/components/layout/AlertImage";
-export const metadata: Metadata = {
-  title: "Gallery - Magadh oro Dental",
-};
+import { TabTitle } from "@/app/constant";
+
 const gallery_query = gql`
   query Images {
     gallery {
@@ -22,8 +21,26 @@ const gallery_query = gql`
         name
       }
     }
+    mataData {
+      GalleryMetaData {
+        title
+        description
+      }
+    }
   }
 `;
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<GalleryData>({
+    query: gallery_query,
+  });
+
+  return {
+    title:
+      metadataResponse.data.mataData.GalleryMetaData.title + " " + TabTitle,
+    description: metadataResponse.data.mataData.GalleryMetaData.description,
+  };
+};
+
 async function page() {
   const { data } = await client.query<GalleryData>({
     query: gallery_query,

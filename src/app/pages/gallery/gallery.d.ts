@@ -1,5 +1,6 @@
 export interface GalleryData {
   gallery: Gallery;
+  mataData: MataData;
 }
 
 export interface Gallery {
@@ -9,4 +10,13 @@ export interface Gallery {
 export interface Image {
   url: string;
   name: string;
+}
+
+export interface MataData {
+  GalleryMetaData: GalleryMetaData;
+}
+
+export interface GalleryMetaData {
+  title: string;
+  description: string;
 }
