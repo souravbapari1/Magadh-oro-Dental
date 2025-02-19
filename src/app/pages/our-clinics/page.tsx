@@ -11,9 +11,31 @@ import client from "@/graphql/client";
 import { gql } from "@apollo/client";
 import { Metadata } from "next";
 import React from "react";
+import { TabTitle } from "@/app/constant";
+import { OurClinicMetaData } from "./OurClinicData";
 
-export const metadata: Metadata = {
-  title: "Our Clinics - Magadh oro Dental",
+const OUR_CLINIC_META = gql`
+  query OurClinicsMetaData {
+    mataData {
+      OurClinicsMetaData {
+        description
+        title
+      }
+    }
+  }
+`;
+
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<OurClinicMetaData>({
+    query: OUR_CLINIC_META,
+  });
+
+  return {
+    title:
+      metadataResponse.data.mataData.OurClinicsMetaData.title + " " + TabTitle,
+
+    description: metadataResponse.data.mataData.OurClinicsMetaData.description,
+  };
 };
 
 async function page() {
@@ -30,6 +52,12 @@ async function page() {
           google_review_link
           opening_hours
           practo_review_link
+        }
+        mataData {
+          OurClinicsMetaData {
+            description
+            title
+          }
         }
       }
     `,

@@ -13,6 +13,7 @@ import Head from "next/head";
 import client from "@/graphql/client";
 import { HomeMetaDataType } from "./HomeMeta";
 import { gql } from "@apollo/client";
+import { Metadata } from "next";
 const META_DATA_QUERY = gql`
   query MataData {
     mataData {
@@ -23,53 +24,48 @@ const META_DATA_QUERY = gql`
     }
   }
 `;
-
-async function page() {
-  const { data } = await client.query<HomeMetaDataType>({
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<HomeMetaDataType>({
     query: META_DATA_QUERY,
   });
 
+  return {
+    title: metadataResponse.data.mataData.HomePageMetaData.title,
+
+    description: metadataResponse.data.mataData.HomePageMetaData.description,
+  };
+};
+
+async function page() {
   return (
-    <>
-      <div>
-        <Head>
-          <title>{data?.mataData?.HomePageMetaData?.title}</title>
-          <meta
-            name="description"
-            content={data?.mataData?.HomePageMetaData?.description}
-          />
-          <link rel="canonical" href="" />
-        </Head>
+    <div className="relative">
+      <Header />
+      <CallSection />
+      <AboutUs />
+      <ServicesView />
+      <ReviewsSlide />
+      <HomeFaqs />
+      <div className="container py-16">
+        <Image
+          src="/why.svg"
+          width={1000}
+          height={1000}
+          alt="About Us"
+          className="object-contain w-full h-auto md:block hidden "
+        />
+        <Image
+          src="/why-mob.svg"
+          width={1000}
+          height={1000}
+          alt="About Us"
+          className="object-contain w-full h-auto md:hidden block "
+        />
       </div>
-      <div className="relative">
-        <Header />
-        <CallSection />
-        <AboutUs />
-        <ServicesView />
-        <ReviewsSlide />
-        <HomeFaqs />
-        <div className="container py-16">
-          <Image
-            src="/why.svg"
-            width={1000}
-            height={1000}
-            alt="About Us"
-            className="object-contain w-full h-auto md:block hidden "
-          />
-          <Image
-            src="/why-mob.svg"
-            width={1000}
-            height={1000}
-            alt="About Us"
-            className="object-contain w-full h-auto md:hidden block "
-          />
-        </div>
-        <VideoSection />
-        <ClinicView />
-        <BookNow />
-        <Footer />
-      </div>
-    </>
+      <VideoSection />
+      <ClinicView />
+      <BookNow />
+      <Footer />
+    </div>
   );
 }
 
