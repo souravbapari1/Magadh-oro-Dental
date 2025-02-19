@@ -8,15 +8,36 @@ import VideoSection from "@/components/layout/VideoSection";
 import client from "@/graphql/client";
 import { gql } from "@apollo/client";
 import { termsAndConditionsContentData } from "./termsAndServicesData";
+import { Metadata } from "next";
+import { TabTitle } from "@/app/constant";
 
 const TERMS_CONDITION_QUERY = gql`
   query TermsAndConditionsContent {
     termsAndConditionsContent {
       content
     }
+    mataData {
+      TermsAndConditionsMetaData {
+        title
+        description
+      }
+    }
   }
 `;
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<termsAndConditionsContentData>({
+    query: TERMS_CONDITION_QUERY,
+  });
 
+  return {
+    title:
+      metadataResponse.data.mataData.TermsAndConditionsMetaData.title +
+      TabTitle,
+
+    description:
+      metadataResponse.data.mataData.TermsAndConditionsMetaData.description,
+  };
+};
 async function page() {
   const { data } = await client.query<termsAndConditionsContentData>({
     query: TERMS_CONDITION_QUERY,

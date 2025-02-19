@@ -1,7 +1,6 @@
 export interface PriceMetaData {
   mataData: MataData;
 }
-
 export interface MataData {
   PricingMetaData: PricingMetaData;
 }

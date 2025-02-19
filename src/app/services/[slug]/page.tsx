@@ -47,21 +47,7 @@ const SERVICES_VIEW_QUERY = gql`
   }
 `;
 
-export const metadata = async (): Promise<Metadata> => {
-  const metadataResponse = await client.query<ServicesConnectionData>({
-    query: SERVICES_VIEW_QUERY,
-  });
-
-  return {
-    title:
-      metadataResponse.data.services_connection.nodes[0].ServicesMetadata
-        ?.title,
-
-    description:
-      metadataResponse.data.services_connection.nodes[0].ServicesMetadata
-        ?.description,
-  };
-};
+export let metadata: Metadata;
 
 async function page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -80,7 +66,11 @@ async function page({ params }: { params: Promise<{ slug: string }> }) {
     },
   });
 
-  console.log(data?.services_connection?.nodes[0].ServicesMetadata);
+  metadata = {
+    title: data?.services_connection?.nodes[0].ServicesMetadata?.title,
+    description:
+      data.services_connection?.nodes[0].ServicesMetadata?.description,
+  };
 
   if (data.services_connection.nodes.length === 0) {
     return <NotFound />;
