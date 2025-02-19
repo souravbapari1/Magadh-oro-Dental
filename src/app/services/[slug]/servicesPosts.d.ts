@@ -13,11 +13,17 @@ export interface Node {
   documentId: string;
   description: string;
   content: string;
+  ServicesMetadata?: ServicesMetadata;
   before_afters: BeforeAfter[];
 }
 
 export interface Image {
   url: string;
+}
+
+export interface ServicesMetadata {
+  description: string;
+  title: string;
 }
 
 export interface BeforeAfter {
@@ -33,3 +39,5 @@ export interface After {
 export interface Before {
   url: string;
 }
+
+// ServicesConnectionData

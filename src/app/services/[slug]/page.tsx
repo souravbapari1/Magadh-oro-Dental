@@ -10,7 +10,7 @@ import ServicesListCard from "@/components/layout/ServicesListCard";
 import VideoSection from "@/components/layout/VideoSection";
 import client, { strApi } from "@/graphql/client";
 import { gql } from "@apollo/client";
-import { Metadata } from "next";
+import Head from "next/head";
 import { ServicesConnectionData } from "./servicesPosts";
 
 const SERVICES_VIEW_QUERY = gql`
@@ -28,6 +28,10 @@ const SERVICES_VIEW_QUERY = gql`
         documentId
         description
         content
+        ServicesMetadata {
+          description
+          title
+        }
         before_afters {
           title
           after {
@@ -41,8 +45,6 @@ const SERVICES_VIEW_QUERY = gql`
     }
   }
 `;
-
-export let metadata: Metadata;
 
 async function page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -65,57 +67,67 @@ async function page({ params }: { params: Promise<{ slug: string }> }) {
     return <NotFound />;
   }
 
-  metadata = {
-    title:
-      data.services_connection.nodes[0].service_name + " - Magadh oro Dental",
-    description: data.services_connection.nodes[0].description,
-  };
-
   return (
-    <div>
-      <PageHeader
-        title={data.services_connection.nodes[0].service_name}
-        path={data.services_connection.nodes[0].slug}
-      />
-      <div className="container py-20">
-        <div className="grid lg:grid-cols-3 lg:gap-20 gap-10">
-          <div
-            className="content lg:col-span-2"
-            dangerouslySetInnerHTML={{
-              __html: data.services_connection.nodes[0].content,
-            }}
+    <>
+      <div>
+        <Head>
+          <title>
+            {data.services_connection.nodes[0].ServicesMetadata?.title}
+          </title>
+          <meta
+            name="description"
+            content={
+              data.services_connection.nodes[0].ServicesMetadata?.description
+            }
           />
-          <div className="">
-            <div className="lg:sticky top-24">
-              <ServicesListCard />
+          <link rel="canonical" href="" />
+        </Head>
+      </div>
+      <div>
+        <PageHeader
+          title={data.services_connection.nodes[0].service_name}
+          path={data.services_connection.nodes[0].slug}
+        />
+        <div className="container py-20">
+          <div className="grid lg:grid-cols-3 lg:gap-20 gap-10">
+            <div
+              className="content lg:col-span-2"
+              dangerouslySetInnerHTML={{
+                __html: data.services_connection.nodes[0].content,
+              }}
+            />
+            <div className="">
+              <div className="lg:sticky top-24">
+                <ServicesListCard />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="container">
-        <div className="py-10 grid md:grid-cols-2 grid-cols-1 gap-8">
-          {data.services_connection.nodes[0].before_afters.map(
-            (item, index) => {
-              return (
-                <ImageSlider
-                  key={index + `df-af`}
-                  data={{
-                    after: strApi + item.after.url,
-                    before: strApi + item.before.url,
-                  }}
-                />
-              );
-            }
-          )}
+        <div className="container">
+          <div className="py-10 grid md:grid-cols-2 grid-cols-1 gap-8">
+            {data.services_connection.nodes[0].before_afters.map(
+              (item, index) => {
+                return (
+                  <ImageSlider
+                    key={index + `df-af`}
+                    data={{
+                      after: strApi + item.after.url,
+                      before: strApi + item.before.url,
+                    }}
+                  />
+                );
+              }
+            )}
+          </div>
         </div>
+        <HomeFaqs />
+        <ReviewsSlide />
+        <VideoSection />
+        <ClinicView />
+        <BookNow />
+        <Footer />
       </div>
-      <HomeFaqs />
-      <ReviewsSlide />
-      <VideoSection />
-      <ClinicView />
-      <BookNow />
-      <Footer />
-    </div>
+    </>
   );
 }
 

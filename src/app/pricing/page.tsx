@@ -9,6 +9,9 @@ import VideoSection from "@/components/layout/VideoSection";
 import client from "@/graphql/client";
 import { gql } from "@apollo/client";
 import { Metadata } from "next";
+import Head from "next/head";
+import { PriceMetaData } from "./priceMeta";
+import { TabTitle } from "../constant";
 export const metadata: Metadata = {
   title: "Pricing List - Magadh oro Dental",
 };
@@ -17,6 +20,16 @@ const SERVICES_LIST_CARD_QUERY = gql`
   query Pricing {
     pricing {
       content
+    }
+  }
+`;
+const META_DATA_PRICE = gql`
+  query PricingMetaData {
+    mataData {
+      PricingMetaData {
+        title
+        description
+      }
     }
   }
 `;
@@ -30,29 +43,49 @@ async function page() {
     query: SERVICES_LIST_CARD_QUERY,
   });
 
+  const PricingData = await client.query<PriceMetaData>({
+    query: META_DATA_PRICE,
+  });
+
   return (
-    <div>
-      <PageHeader title="Dental Treatment Price List" path="Pricing List" />
-      <div className="container py-20">
-        <div className="grid lg:grid-cols-3 lg:gap-20 gap-10">
-          <div
-            className="content lg:col-span-2"
-            dangerouslySetInnerHTML={{ __html: data.pricing.content }}
+    <>
+      <div>
+        <Head>
+          <title>
+            {PricingData.data.mataData.PricingMetaData.title + TabTitle}
+          </title>
+          <meta
+            name="description"
+            content={PricingData.data.mataData.PricingMetaData.title + TabTitle}
           />
-          <div className="">
-            <div className="lg:sticky top-24">
-              <ServicesListCard />
+          <link rel="canonical" href="" />
+        </Head>
+      </div>
+      <div>
+        <PageHeader title="Dental Treatment Price List" path="Pricing List" />
+        <div className="container py-20">
+          <div className="grid lg:grid-cols-3 lg:gap-20 gap-10">
+            <div
+              className="content lg:col-span-2"
+              dangerouslySetInnerHTML={{ __html: data.pricing.content }}
+            />
+            <div className="">
+              <div className="lg:sticky top-24">
+                <ServicesListCard />
+              </div>
             </div>
           </div>
         </div>
+        {/* <HomeFaqs /> */}
+        <ReviewsSlide />
+        <VideoSection />
+        <ClinicView />
+        <BookNow />
+        <Footer />
       </div>
-      {/* <HomeFaqs /> */}
-      <ReviewsSlide />
-      <VideoSection />
-      <ClinicView />
-      <BookNow />
-      <Footer />
-    </div>
+
+    </>
+
   );
 }
 
