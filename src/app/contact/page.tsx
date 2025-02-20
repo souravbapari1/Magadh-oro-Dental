@@ -10,9 +10,30 @@ import { CiLocationOn } from "react-icons/ci";
 import { MdMarkEmailRead } from "react-icons/md";
 import ContactForm from "./ContacForm";
 import { Metadata } from "next";
+import { gql } from "@apollo/client";
+import client from "@/graphql/client";
+import { ContactUsMetaDataType } from "./ContactType";
+import { TabTitle } from "../constant";
 
-export const metadata: Metadata = {
-  title: "Contact Us  | Magadh oro Dental",
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<ContactUsMetaDataType>({
+    query: gql`
+      query ContactUsMetaData {
+        mataData {
+          ContactUsMetaData {
+            title
+            description
+          }
+        }
+      }
+    `,
+  });
+
+  return {
+    title: metadataResponse.data.mataData.ContactUsMetaData.title + TabTitle,
+
+    description: metadataResponse.data.mataData.ContactUsMetaData.description,
+  };
 };
 
 function page() {

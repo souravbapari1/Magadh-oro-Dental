@@ -7,7 +7,10 @@ import ServicesItem from "@/components/layout/ServicesItem";
 import VideoSection from "@/components/layout/VideoSection";
 import client from "@/graphql/client";
 import { gql } from "@apollo/client";
-import { ServiceData } from "./service";
+import { ServiceData, ServiceMetaData } from "./service";
+import { Metadata } from "next";
+import { AboutUsMetaData } from "../about/aboutus";
+import { TabTitle } from "../constant";
 
 const services_query = gql`
   query Image {
@@ -21,6 +24,29 @@ const services_query = gql`
     }
   }
 `;
+
+const SERVICE_METADATA = gql`
+  query ServicesMetadata {
+    mataData {
+      ServicesMetadata {
+        description
+        title
+      }
+    }
+  }
+`;
+
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<ServiceMetaData>({
+    query: SERVICE_METADATA,
+  });
+
+  return {
+    title: metadataResponse.data.mataData.ServicesMetadata.title,
+
+    description: metadataResponse.data.mataData.ServicesMetadata.description,
+  };
+};
 
 async function page() {
   const { data } = await client.query<ServiceData>({

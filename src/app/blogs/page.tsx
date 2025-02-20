@@ -7,9 +7,30 @@ import ReviewsSlide from "@/components/layout/ReviewsSlide";
 import VideoSection from "@/components/layout/VideoSection";
 import { Metadata } from "next";
 import BlogsList from "./BlogsList";
+import { TabTitle } from "../constant";
+import client from "@/graphql/client";
+import { gql } from "@apollo/client";
+import { BlogMetaData } from "./blogs";
 
-export const metadata: Metadata = {
-  title: "Blogs  | Magadh oro Dental",
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<BlogMetaData>({
+    query: gql`
+      query MataData {
+        mataData {
+          BlogMetaData {
+            title
+            description
+          }
+        }
+      }
+    `,
+  });
+
+  return {
+    title: metadataResponse.data.mataData.BlogMetaData.title + TabTitle,
+
+    description: metadataResponse.data.mataData.BlogMetaData.description,
+  };
 };
 
 function page() {

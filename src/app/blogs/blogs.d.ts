@@ -31,3 +31,16 @@ export interface BlogCategory {
 export interface Image {
   url: string;
 }
+
+export interface BlogMetaData {
+  mataData: MataData;
+}
+
+export interface MataData {
+  BlogMetaData: BlogMetaData;
+}
+
+export interface BlogMetaData {
+  title: string;
+  description: string;
+}

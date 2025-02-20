@@ -10,9 +10,28 @@ import client from "@/graphql/client";
 import { gql } from "@apollo/client";
 import { Metadata } from "next";
 import DoctorCard from "../about/DoctorCard";
+import { TabTitle } from "../constant";
+import { DoctorsMetaDataTag } from "./doctors";
 
-export const metadata: Metadata = {
-  title: "Doctors  | Magadh oro Dental",
+export const metadata = async (): Promise<Metadata> => {
+  const metadataResponse = await client.query<DoctorsMetaDataTag>({
+    query: gql`
+      query DoctorsMetaData {
+        mataData {
+          DoctorsMetaData {
+            description
+            title
+          }
+        }
+      }
+    `,
+  });
+
+  return {
+    title: metadataResponse.data.mataData.DoctorsMetaData.title + TabTitle,
+
+    description: metadataResponse.data.mataData.DoctorsMetaData.description,
+  };
 };
 
 const doctors_query = gql`
