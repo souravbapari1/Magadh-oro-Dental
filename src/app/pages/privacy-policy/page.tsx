@@ -33,7 +33,6 @@ export const metadata = async (): Promise<Metadata> => {
   return {
     title:
       metadataResponse.data.mataData.PrivacyPolicyMetadata.title + TabTitle,
-
     description:
       metadataResponse.data.mataData.PrivacyPolicyMetadata.description,
   };

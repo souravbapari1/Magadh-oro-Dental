@@ -12,6 +12,7 @@ import { gql } from "@apollo/client";
 import { Metadata } from "next";
 import { WatchUsMetaData } from "./watch";
 import { TabTitle } from "../constant";
+import { VideosData } from "@/components/layout/interface/videos";
 
 const WATCH_META_QUERY = gql`
   query WatchMetaData {
@@ -20,6 +21,16 @@ const WATCH_META_QUERY = gql`
         title
         description
       }
+    }
+  }
+`;
+
+const videos_section = gql`
+  query Videos {
+    videos {
+      createdAt
+      documentId
+      youtube_video_id
     }
   }
 `;
@@ -35,37 +46,27 @@ export const metadata = async (): Promise<Metadata> => {
   };
 };
 
-function watch() {
+export const relative = 0;
+async function watch() {
+  const { data } = await client.query<VideosData>({
+    query: videos_section,
+  });
   return (
     <div>
       <PageHeader title="Watch Videos" path="Watch" />
 
       <div className="container py-20">
         <div className="grid lg:grid-cols-2 gap-6">
-          <VideoItem
-            video="https://www.youtube.com/embed/eBDU0E4fH40?si=TNY4d5Fni0csib1g"
-            active={true}
-          />
-          <VideoItem
-            video="https://www.youtube.com/embed/eBDU0E4fH40?si=TNY4d5Fni0csib1g"
-            active={true}
-          />
-          <VideoItem
-            video="https://www.youtube.com/embed/eBDU0E4fH40?si=TNY4d5Fni0csib1g"
-            active={true}
-          />
-          <VideoItem
-            video="https://www.youtube.com/embed/eBDU0E4fH40?si=TNY4d5Fni0csib1g"
-            active={true}
-          />
-          <VideoItem
-            video="https://www.youtube.com/embed/eBDU0E4fH40?si=TNY4d5Fni0csib1g"
-            active={true}
-          />
-          <VideoItem
-            video="https://www.youtube.com/embed/eBDU0E4fH40?si=TNY4d5Fni0csib1g"
-            active={true}
-          />
+          {data.videos.map((video) => {
+            return (
+              <VideoItem
+                video={
+                  "https://www.youtube.com/embed/" + video.youtube_video_id
+                }
+                active={true}
+              />
+            );
+          })}
         </div>
         <div className="flex justify-center items-center mt-6">
           <Button className="mx-auto rounded-full shadow-none px-8 py-5 mt-10 text-center">

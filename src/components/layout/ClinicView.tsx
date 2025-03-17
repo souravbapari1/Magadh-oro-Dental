@@ -62,7 +62,7 @@ async function ClinicView() {
           }}
         />
         <div className="grid lg:grid-cols-2 gap-8 mt-10">
-          {data.ourClinics.map((clinic) => (
+          {data.ourClinics.reverse().map((clinic) => (
             <ClinicCard key={clinic.documentId} clinic={clinic} />
           ))}
         </div>

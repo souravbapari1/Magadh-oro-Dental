@@ -8,6 +8,7 @@ import VideoSection from "@/components/layout/VideoSection";
 import client from "@/graphql/client";
 import { gql } from "@apollo/client";
 import { ServiceData } from "./service";
+import ServicesTabView from "@/components/layout/ServicesTabView";
 
 const services_query = gql`
   query Image {
@@ -18,6 +19,7 @@ const services_query = gql`
       service_name
       slug
       description
+      category
     }
   }
 `;
@@ -31,11 +33,14 @@ async function page() {
     <div>
       <PageHeader title="Services" path="Services" />
       <div className="container py-20">
-        <div className="grid  md:grid-cols-3 gap-8">
-          {data.services.map((service) => (
-            <ServicesItem key={service.slug} data={service} />
-          ))}
-        </div>
+        <ServicesTabView
+          data={{
+            ourServicesList: {
+              services: data.services as any,
+              basicHeader: {} as any,
+            },
+          }}
+        />
       </div>
       {/* <HomeFaqs /> */}
       <ReviewsSlide />

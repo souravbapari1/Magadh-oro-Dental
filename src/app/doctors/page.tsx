@@ -72,7 +72,7 @@ async function page() {
     <div className="">
       <PageHeader title="Meet Doctors" path="Doctors" />
       <div className="container">
-        <div className="grid grid-cols-3 gap-6 py-16">
+        <div className="grid md:grid-cols-3 gap-6 py-16">
           {data.doctors.map((doctor) => (
             <DoctorCard key={doctor.slug} doctor={doctor} />
           ))}

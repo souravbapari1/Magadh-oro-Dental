@@ -20,6 +20,7 @@ export interface Service {
   description: string;
   image: Image;
   documentId: string;
+  category: "Cosmetic_Dentistry" | "Advance_Dentistry"
 }
 
 export interface Image {

@@ -1,1 +1,1 @@
-export const TabTitle: string = "| Magha Oro Dental";
+export const TabTitle: string = "|  Magadh Oro Dental";

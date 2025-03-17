@@ -117,8 +117,8 @@ async function page({ params }: { params: Promise<{ slug: string }> }) {
   }
 
   metadata = {
-    title: data?.doctors[0].Metadata.title + TabTitle,
-    description: data.doctors[0].Metadata.description,
+    title: data?.doctors[0]?.Metadata?.title + TabTitle,
+    description: data.doctors[0]?.Metadata?.description,
   };
 
   const doctor = data.doctors[0];

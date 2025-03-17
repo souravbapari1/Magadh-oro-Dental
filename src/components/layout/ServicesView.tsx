@@ -6,6 +6,7 @@ import Image from "next/image";
 import { IoArrowForward } from "react-icons/io5";
 import { ServicesViewData } from "./interface/ServicesViewData";
 import Link from "next/link";
+import ServicesTabView from "./ServicesTabView";
 
 const SERVICES_VIEW_QUERY = gql`
   query BasicHeader {
@@ -24,15 +25,18 @@ const SERVICES_VIEW_QUERY = gql`
           url
         }
         documentId
+        category
       }
     }
   }
 `;
-
+export const relative = 0;
 async function ServicesView() {
   const { data } = await client.query<ServicesViewData>({
     query: SERVICES_VIEW_QUERY,
   });
+
+  console.log(data.ourServicesList);
 
   return (
     <div className="bg-primary/5 py-16">
@@ -62,13 +66,7 @@ async function ServicesView() {
             __html: data.ourServicesList.basicHeader.description,
           }}
         />
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-10">
-          {data.ourServicesList.services.map((item, index) => {
-            return (
-              <ServicesItem key={index + "tet" + item.documentId} data={item} />
-            );
-          })}
-        </div>
+        <ServicesTabView data={data} />
         <div className="w-full flex justify-center items-center">
           <Link href="/services">
             <Button

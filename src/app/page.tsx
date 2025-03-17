@@ -14,6 +14,7 @@ import client from "@/graphql/client";
 import { HomeMetaDataType } from "./HomeMeta";
 import { gql } from "@apollo/client";
 import { Metadata } from "next";
+import { headers } from "next/headers";
 const META_DATA_QUERY = gql`
   query MataData {
     mataData {
@@ -29,10 +30,17 @@ export const metadata = async (): Promise<Metadata> => {
     query: META_DATA_QUERY,
   });
 
+  const headersList = await headers();
+  const host = headersList.get("host") || "magadhorodental.com";
+  const protocol = headersList.get("x-forwarded-proto") || "https"; // Ensures HTTPS
+  const url = `${protocol}://${host}${headersList.get("x-original-uri") || ""}`; // Constructs full URL
+
   return {
     title: metadataResponse.data.mataData.HomePageMetaData.title,
-
     description: metadataResponse.data.mataData.HomePageMetaData.description,
+    other: {
+      canonical: url,
+    },
   };
 };
 
