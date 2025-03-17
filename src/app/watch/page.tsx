@@ -12,7 +12,7 @@ import { gql } from "@apollo/client";
 import { Metadata } from "next";
 import { WatchUsMetaData } from "./watch";
 import { TabTitle } from "../constant";
-
+export const revalidate = 0;
 const WATCH_META_QUERY = gql`
   query WatchMetaData {
     mataData {

@@ -23,7 +23,8 @@ const META_DATA_QUERY = gql`
       }
     }
   }
-`;
+  `;
+export const revalidate = 0;
 export const metadata = async (): Promise<Metadata> => {
   const metadataResponse = await client.query<HomeMetaDataType>({
     query: META_DATA_QUERY,
@@ -35,7 +36,6 @@ export const metadata = async (): Promise<Metadata> => {
     description: metadataResponse.data.mataData.HomePageMetaData.description,
   };
 };
-
 async function page() {
   return (
     <div className="relative">

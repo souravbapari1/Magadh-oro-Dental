@@ -10,7 +10,7 @@ import client, { strApi } from "@/graphql/client";
 import { gql } from "@apollo/client";
 import { BeforeAfterData } from "./beforeafter";
 import { Metadata } from "next";
-
+export const revalidate = 0;
 export const metadata: Metadata = {
   title: "Before After Compare  | Magadh oro Dental",
 };

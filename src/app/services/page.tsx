@@ -8,7 +8,7 @@ import VideoSection from "@/components/layout/VideoSection";
 import client from "@/graphql/client";
 import { gql } from "@apollo/client";
 import { ServiceData } from "./service";
-
+export const revalidate = 0;
 const services_query = gql`
   query Image {
     services {

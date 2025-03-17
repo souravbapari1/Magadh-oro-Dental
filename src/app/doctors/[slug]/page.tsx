@@ -19,6 +19,7 @@ import ImageSlider from "@/components/layout/ImageSlider";
 import Head from "next/head";
 import { TabTitle } from "@/app/constant";
 export let metadata: Metadata;
+export const revalidate = 0;
 const doctor_query = gql`
   query Doctors($pagination: PaginationArg, $filters: DoctorsListFiltersInput) {
     doctors(pagination: $pagination, filters: $filters) {

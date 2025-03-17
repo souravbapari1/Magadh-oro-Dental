@@ -15,7 +15,7 @@ export const metadata = {
   description:
     "Book your visit with our dental clinic today and get the best service you deserve. ",
 };
-
+export const revalidate = 0;
 function page() {
   return (
     <div className="bg-gray-50/50 ">

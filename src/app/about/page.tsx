@@ -16,7 +16,7 @@ import { AboutUsData, AboutUsMetaData } from "./aboutus";
 import DoctorsSection from "@/components/layout/DoctorsSection";
 import { Metadata } from "next";
 import Head from "next/head";
-
+export const revalidate = 0;
 const About_US_query = gql`
   query AboutUs {
     aboutUs {

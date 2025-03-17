@@ -10,7 +10,7 @@ import BookNow from "@/components/layout/BookNow";
 import Footer from "@/components/layout/Footer";
 import { Metadata } from "next";
 import { TabTitle } from "@/app/constant";
-
+export const revalidate = 0;
 const PRIVACY_POLICY_QUERY = gql`
   query PrivacyPolicy {
     privacyPolicy {

@@ -12,7 +12,7 @@ import { Metadata } from "next";
 import Head from "next/head";
 import { PriceMetaData } from "./priceMeta";
 import { TabTitle } from "../constant";
-
+export const revalidate = 0;
 const SERVICES_LIST_CARD_QUERY = gql`
   query Pricing {
     pricing {

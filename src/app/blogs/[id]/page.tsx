@@ -19,7 +19,7 @@ import Head from "next/head";
 import { TabTitle } from "@/app/constant";
 
 export let metadata: Metadata;
-
+export const revalidate = 0;
 const blog_query = gql`
   query Blog_category(
     $pagination: PaginationArg

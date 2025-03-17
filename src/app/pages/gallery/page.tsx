@@ -12,7 +12,7 @@ import Image from "next/image";
 import { GalleryData } from "./gallery";
 import AlerImage from "@/components/layout/AlertImage";
 import { TabTitle } from "@/app/constant";
-
+export const revalidate = 0;
 const gallery_query = gql`
   query Images {
     gallery {

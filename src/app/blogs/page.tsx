@@ -11,7 +11,7 @@ import BlogsList from "./BlogsList";
 export const metadata: Metadata = {
   title: "Blogs  | Magadh oro Dental",
 };
-
+export const revalidate = 0;
 function page() {
   return (
     <div>

@@ -10,7 +10,7 @@ import client from "@/graphql/client";
 import { gql } from "@apollo/client";
 import { Metadata } from "next";
 import DoctorCard from "../about/DoctorCard";
-
+export const revalidate = 0;
 export const metadata: Metadata = {
   title: "Doctors  | Magadh oro Dental",
 };

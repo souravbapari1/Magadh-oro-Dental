@@ -10,7 +10,7 @@ import { gql } from "@apollo/client";
 import { termsAndConditionsContentData } from "./termsAndServicesData";
 import { Metadata } from "next";
 import { TabTitle } from "@/app/constant";
-
+export const revalidate = 0;
 const TERMS_CONDITION_QUERY = gql`
   query TermsAndConditionsContent {
     termsAndConditionsContent {

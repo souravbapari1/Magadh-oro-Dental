@@ -13,7 +13,7 @@ import { Metadata } from "next";
 import React from "react";
 import { TabTitle } from "@/app/constant";
 import { OurClinicMetaData } from "./OurClinicData";
-
+export const revalidate = 0;
 const OUR_CLINIC_META = gql`
   query OurClinicsMetaData {
     mataData {

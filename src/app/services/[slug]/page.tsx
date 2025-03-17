@@ -13,7 +13,7 @@ import { gql } from "@apollo/client";
 import Head from "next/head";
 import { ServicesConnectionData } from "./servicesPosts";
 import { Metadata } from "next";
-
+export const revalidate = 0;
 const SERVICES_VIEW_QUERY = gql`
   query Services_connection(
     $filters: ServiceslistFiltersInput

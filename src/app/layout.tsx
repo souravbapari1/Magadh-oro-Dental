@@ -26,7 +26,7 @@ const geistMono = Geist_Mono({
 });
 
 // Uncomment and use this metadata if needed
-
+export const revalidate = 0;
 export default function RootLayout({
   children,
 }: {

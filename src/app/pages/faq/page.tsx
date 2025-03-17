@@ -16,7 +16,7 @@ import { Metadata } from "next";
 import React from "react";
 import { FrequentlyAskedDataTpye } from "./Faqs";
 import { TabTitle } from "@/app/constant";
-
+export const revalidate = 0;
 const FAQ_QUERY = gql`
   query FaqS {
     faqS {

@@ -10,7 +10,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { MdMarkEmailRead } from "react-icons/md";
 import ContactForm from "./ContacForm";
 import { Metadata } from "next";
-
+export const revalidate = 0;
 export const metadata: Metadata = {
   title: "Contact Us  | Magadh oro Dental",
 };
